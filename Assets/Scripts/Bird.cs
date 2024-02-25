@@ -8,7 +8,7 @@ public class Bird : MonoBehaviour
     private Rigidbody2D rigidbody2D;
 
     [SerializeField]
-    private float jumpSpeed = 50f;
+    private float jumpSpeed = 40f;
 
     private void Awake()
     {
