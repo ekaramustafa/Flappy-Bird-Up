@@ -2,26 +2,38 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CodeMonkey.Utils;
 
 public class Level : MonoBehaviour
 {
+
+    /* TO-DOs
+    Refactor the input system
+    Refactor the state system to have one game state
+    */
+    private static Level instance;
+
     private const float CAMERA_ORTHO_SIZE = 50f;
 
     private const float PIPE_BODY_WIDTH = 7.8f;
     private const float PIPE_HEAD_HEIGHT = 3.75f;
     private const float PIPE_DESTROY_X_POSITION = -100f;
     private const float PIPE_SPAWN_X_POSITION = 100f;
+    private const float BIRD_X_POSITION = 0f;
 
     [SerializeField]
     public const float pipeMoveSpeed = 30f;
+    [SerializeField]
+    private Bird bird;
 
     private List<Pipe> pipeList;
-
+    private int pipesPassedCount;
 
     private float pipeSpawnTimer;
     private float pipeSpawnTimerMax;
     private float gapSize;
     private int pipesSpawned;
+    private State state;
 
     public enum Difficutly
     {
@@ -31,22 +43,58 @@ public class Level : MonoBehaviour
         Impossible
     }
 
+    private enum State
+    {
+        WaitingToStart,
+        Playing,
+        BirdDead
+    }
+
     private void Awake()
     {
         pipeList = new List<Pipe>();
         pipeSpawnTimerMax = 1f;
         SetDifficulty(Difficutly.Easy); //set the gapSize
         pipesSpawned = 0;
+        pipesPassedCount = 0;
+        instance = this;
+        state = State.WaitingToStart;
     }
     private void Start()
     {
-
+        bird.OnDied += Bird_OnDied;
+        bird.OnstartedPlaying += Bird_OnstartedPlaying;
+     
     }
 
+    private void Bird_OnstartedPlaying(object sender, EventArgs e)
+    {
+        state = State.Playing;
+    }
+
+    private void Bird_OnDied(object sender, EventArgs e)
+    {
+        state = State.BirdDead;
+
+        //Reload the scene
+        FunctionTimer.Create(() => 
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+        }, 1f);
+    }
+
+    public static Level GetInstance()
+    {
+        return instance;
+    }
     private void Update()
     {
-        HandlePipeMovement();
-        HandlePipeSwapning();
+        if(state == State.Playing)
+        {
+            HandlePipeMovement();
+            HandlePipeSwapning();
+        }
+
     }
 
     private void HandlePipeSwapning()
@@ -72,7 +120,13 @@ public class Level : MonoBehaviour
         for(int i = 0; i < pipeList.Count; i++)
         {
             Pipe pipe = pipeList[i];
+            bool isToTheRightOfBird = pipe.GetXPosition() > BIRD_X_POSITION;
             pipe.Move();
+            if(isToTheRightOfBird && pipe.GetXPosition() <= BIRD_X_POSITION && pipe.IsBottom())
+            {
+                //Pipe passed Bird
+                pipesPassedCount++;
+            }
             //The pipe is out of the window
             if(pipe.GetXPosition() < PIPE_DESTROY_X_POSITION)
             {
@@ -117,13 +171,13 @@ public class Level : MonoBehaviour
 
     }
 
-    private void CreatePipe(float height, float xPosition, bool createBottom)
+    private void CreatePipe(float height, float xPosition, bool isBottom)
     {
 
         //setup for pipe head
         Transform pipeHead = Instantiate(GameAssets.GetInstance().pfPipeHead);
         float pipeHeadYPosition;
-        if (createBottom)
+        if (isBottom)
         {
             pipeHeadYPosition = -CAMERA_ORTHO_SIZE + height - PIPE_HEAD_HEIGHT * 0.5f;
         }
@@ -137,7 +191,7 @@ public class Level : MonoBehaviour
         //setup for pipe body
         Transform pipeBody = Instantiate(GameAssets.GetInstance().pfPipeBody);
         float pipeBodyYPosition;
-        if (createBottom)
+        if (isBottom)
         {
             pipeHeadYPosition = -CAMERA_ORTHO_SIZE;
         }
@@ -155,9 +209,14 @@ public class Level : MonoBehaviour
         pipeBodyBoxCollider.size = new Vector2(PIPE_BODY_WIDTH, height);
         pipeBodyBoxCollider.offset = new Vector2(0f, height * 0.5f);
 
-        Pipe pipe = new Pipe(pipeHead, pipeBody);
+        Pipe pipe = new Pipe(pipeHead, pipeBody,isBottom);
         pipeList.Add(pipe);
 
+    }
+
+    public int GetPipePassed()
+    {
+        return pipesPassedCount;
     }
 
 
@@ -168,12 +227,14 @@ public class Level : MonoBehaviour
 
         private Transform pipeHeadTransform;
         private Transform pipeBodyTransform;
+        private bool createBottom;
  
 
-        public Pipe(Transform pipeHeadTransform, Transform pipeBodyTransform)
+        public Pipe(Transform pipeHeadTransform, Transform pipeBodyTransform, bool isBottom)
         {
             this.pipeHeadTransform = pipeHeadTransform;
             this.pipeBodyTransform = pipeBodyTransform;
+            this.createBottom = isBottom;
         }
 
 
@@ -193,6 +254,11 @@ public class Level : MonoBehaviour
         {
             Destroy(pipeHeadTransform.gameObject);
             Destroy(pipeBodyTransform.gameObject);
+        }
+
+        public bool IsBottom()
+        {
+            return createBottom;
         }
     }
 }
