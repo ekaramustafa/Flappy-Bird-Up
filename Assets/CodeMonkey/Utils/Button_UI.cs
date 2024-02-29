@@ -17,6 +17,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
+using Unity.VisualScripting;
 
 namespace CodeMonkey.Utils {
     
@@ -45,6 +47,7 @@ namespace CodeMonkey.Utils {
             Change_Color_Auto,
             Change_Image,
             Change_SetActive,
+            Change_Text,
         }
         public HoverBehaviour hoverBehaviourType = HoverBehaviour.Custom;
         private Action hoverBehaviourFunc_Enter, hoverBehaviourFunc_Exit;
@@ -58,6 +61,12 @@ namespace CodeMonkey.Utils {
         public bool triggerMouseOutFuncOnClick = false;
         private bool mouseOver;
         private float mouseOverPerSecFuncTimer;
+
+        //My additions
+        public TextMeshProUGUI hoverBehaviour_Text;
+        [InspectorTextArea]
+        public string hoverBehaviour_Text_Enter;
+        public string hoverBehaviour_Text_Exit;
 
         private Action internalOnPointerEnterFunc = null, internalOnPointerExitFunc = null, internalOnPointerClickFunc = null;
 
@@ -165,6 +174,10 @@ namespace CodeMonkey.Utils {
                 hoverBehaviourFunc_Enter = delegate () { hoverBehaviour_Image.gameObject.SetActive(true); };
                 hoverBehaviourFunc_Exit = delegate () { hoverBehaviour_Image.gameObject.SetActive(false); };
                 break;
+            case HoverBehaviour.Change_Text:
+                    hoverBehaviourFunc_Enter = delegate () { hoverBehaviour_Text.SetText(hoverBehaviour_Text_Enter); };
+                    hoverBehaviourFunc_Exit = delegate () { hoverBehaviour_Text.SetText(hoverBehaviour_Text_Exit); };
+                    break;
             case HoverBehaviour.Change_Color_Auto:
                 Color color = hoverBehaviour_Image.color;
                 if (color.r >= 1f) color.r = .9f;
@@ -174,6 +187,7 @@ namespace CodeMonkey.Utils {
                 hoverBehaviourFunc_Enter = delegate () { hoverBehaviour_Image.color = colorOver; };
                 hoverBehaviourFunc_Exit = delegate () { hoverBehaviour_Image.color = color; };
                 break;
+            
             }
         }
 
