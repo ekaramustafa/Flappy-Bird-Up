@@ -75,12 +75,7 @@ public class Level : MonoBehaviour
     private void Bird_OnDied(object sender, EventArgs e)
     {
         state = State.BirdDead;
-
-        //Reload the scene
-        FunctionTimer.Create(() => 
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
-        }, 1f);
+   
     }
 
     public static Level GetInstance()
@@ -193,14 +188,14 @@ public class Level : MonoBehaviour
         float pipeBodyYPosition;
         if (isBottom)
         {
-            pipeHeadYPosition = -CAMERA_ORTHO_SIZE;
+            pipeBodyYPosition = -CAMERA_ORTHO_SIZE;
         }
         else
         {
-            pipeHeadYPosition = +CAMERA_ORTHO_SIZE;
+            pipeBodyYPosition = +CAMERA_ORTHO_SIZE;
             pipeBody.localScale = new Vector3(1, -1, 1);
         }
-        pipeBody.position = new Vector3(xPosition, pipeHeadYPosition);
+        pipeBody.position = new Vector3(xPosition, pipeBodyYPosition);
 
         SpriteRenderer pipeBodySpriteRendered = pipeBody.GetComponent<SpriteRenderer>();
         pipeBodySpriteRendered.size = new Vector2(PIPE_BODY_WIDTH, height);

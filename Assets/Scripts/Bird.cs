@@ -65,7 +65,6 @@ public class Bird : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //GameOverScreen
         OnDied?.Invoke(this, EventArgs.Empty);
         state = State.Dead;
 
