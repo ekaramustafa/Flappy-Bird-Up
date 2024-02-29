@@ -41,13 +41,15 @@ namespace CodeMonkey.Utils {
         public Action MouseUpdate = null;
         public Action<PointerEventData> OnPointerClickFunc;
 
+        //[Flags]
+        //TO-DO use flags to choose multiple hover behaviour and modify the set function as well
         public enum HoverBehaviour {
             Custom,
             Change_Color,
             Change_Color_Auto,
             Change_Image,
             Change_SetActive,
-            Change_Text,
+            Change_Text_And_Color,
         }
         public HoverBehaviour hoverBehaviourType = HoverBehaviour.Custom;
         private Action hoverBehaviourFunc_Enter, hoverBehaviourFunc_Exit;
@@ -174,9 +176,15 @@ namespace CodeMonkey.Utils {
                 hoverBehaviourFunc_Enter = delegate () { hoverBehaviour_Image.gameObject.SetActive(true); };
                 hoverBehaviourFunc_Exit = delegate () { hoverBehaviour_Image.gameObject.SetActive(false); };
                 break;
-            case HoverBehaviour.Change_Text:
-                    hoverBehaviourFunc_Enter = delegate () { hoverBehaviour_Text.SetText(hoverBehaviour_Text_Enter); };
-                    hoverBehaviourFunc_Exit = delegate () { hoverBehaviour_Text.SetText(hoverBehaviour_Text_Exit); };
+            case HoverBehaviour.Change_Text_And_Color:
+                    hoverBehaviourFunc_Enter = delegate () {
+                        hoverBehaviour_Text.SetText(hoverBehaviour_Text_Enter); 
+                    };
+                    hoverBehaviourFunc_Exit = delegate () { 
+                        hoverBehaviour_Text.SetText(hoverBehaviour_Text_Exit);
+                        hoverBehaviour_Image.color = hoverBehaviour_Color_Enter;
+                        hoverBehaviour_Image.color = hoverBehaviour_Color_Exit;
+                    };
                     break;
             case HoverBehaviour.Change_Color_Auto:
                 Color color = hoverBehaviour_Image.color;

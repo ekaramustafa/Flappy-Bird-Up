@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 467437614}
   - component: {fileID: 467437613}
   m_Layer: 0
-  m_Name: Headline
+  m_Name: FlappyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1075,6 +1075,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 856314571}
+  - component: {fileID: 856314572}
   m_Layer: 0
   m_Name: MenuWindow
   m_TagString: Untagged
@@ -1107,6 +1108,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1280, y: -720}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &856314572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856314570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189469415e3b3084aa71417bd4019fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startButton: {fileID: 276727491}
+  settingsButton: {fileID: 752043666}
+  exitButton: {fileID: 1953608428}
 --- !u!1 &1017624409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,7 +1310,7 @@ GameObject:
   - component: {fileID: 1228537888}
   - component: {fileID: 1228537887}
   m_Layer: 0
-  m_Name: Headline (1)
+  m_Name: BirdText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1754,7 +1770,6 @@ GameObject:
   - component: {fileID: 1953608431}
   - component: {fileID: 1953608430}
   - component: {fileID: 1953608429}
-  - component: {fileID: 1953608433}
   m_Layer: 0
   m_Name: ExitButton
   m_TagString: Untagged
@@ -1795,7 +1810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 602f74cbbbd80034b96f88091a8e7c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverBehaviourType: 1
+  hoverBehaviourType: 5
   hoverBehaviour_Color_Enter: {r: 1, g: 0.7421383, b: 0.8317113, a: 0.47058824}
   hoverBehaviour_Color_Exit: {r: 1, g: 0.85534585, b: 0.9047619, a: 0.25490198}
   hoverBehaviour_Image: {fileID: 1953608431}
@@ -1889,30 +1904,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953608427}
   m_CullTransparentMesh: 1
---- !u!114 &1953608433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953608427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 602f74cbbbd80034b96f88091a8e7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverBehaviourType: 5
-  hoverBehaviour_Color_Enter: {r: 0, g: 0, b: 0, a: 0}
-  hoverBehaviour_Color_Exit: {r: 0, g: 0, b: 0, a: 0}
-  hoverBehaviour_Image: {fileID: 0}
-  hoverBehaviour_Sprite_Exit: {fileID: 0}
-  hoverBehaviour_Sprite_Enter: {fileID: 0}
-  hoverBehaviour_Move: 0
-  hoverBehaviour_Move_Amount: {x: 0, y: 0}
-  triggerMouseOutFuncOnClick: 0
-  hoverBehaviour_Text: {fileID: 1765164099}
-  hoverBehaviour_Text_Enter: NO :(
-  hoverBehaviour_Text_Exit: EXIT
 --- !u!1 &1954607533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,7 +1916,7 @@ GameObject:
   - component: {fileID: 1954607536}
   - component: {fileID: 1954607535}
   m_Layer: 0
-  m_Name: Headline (2)
+  m_Name: UpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

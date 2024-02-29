@@ -5,7 +5,7 @@ using UnityEngine;
 public class LoaderUpdate : MonoBehaviour
 {
 
-    private void Update()
+    private void LateUpdate()
     {
         Loader.LoadTargetScene();
     }
