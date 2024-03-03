@@ -76,9 +76,6 @@ public class Level : MonoBehaviour
     {
         bird.OnDied += Bird_OnDied;
         bird.OnStartedPlaying += Bird_OnstartedPlaying;
-
-        
-        HandleAbilitySpawning();
      
     }
 
@@ -104,6 +101,7 @@ public class Level : MonoBehaviour
         {
             HandlePipeMovement();
             HandlePipeSwapning();
+            HandleAbilitySpawning();
             HandleAbilityMovement();
         }
 
@@ -125,13 +123,35 @@ public class Level : MonoBehaviour
 
     private void HandleAbilitySpawning()
     {
-        CreateSpecialAbility();
+        abilitiesSpawnTimer -= Time.deltaTime;
+        if (abilitiesSpawnTimer < 0)
+        {
+            abilitiesSpawnTimer += abilitiesSpawnTimerMax;
+            float heightEdgeLimit = 10f;
+            float minHeight = -CAMERA_ORTHO_SIZE + heightEdgeLimit;
+            float maxHeight = CAMERA_ORTHO_SIZE - heightEdgeLimit;
+            float height = UnityEngine.Random.Range(minHeight, maxHeight);
+
+            float minX = 40;
+            float maxX = 100;
+            float xPosition = UnityEngine.Random.Range(minX, maxX);
+            CreateAbility(height,xPosition);
+            abilitiesSpawned++;
+        }
     }
 
-    private void CreateSpecialAbility()
+    private void CreateAbility(float yPosition, float xPosition)
     {
-        Transform abilityTransform = Instantiate(GameAssets.GetInstance().ability.transform);
-        abilityTransform.position = new Vector3(40,10);
+        float spawnRadiusOffset = 2f;
+        Collider2D overlapCollider = Physics2D.OverlapCircle(new Vector2(xPosition,yPosition), spawnRadiusOffset);
+        if(overlapCollider != null)
+        {
+            CreateAbility(yPosition, xPosition);
+            return;
+        }
+        //random selection??
+        Transform abilityTransform = Instantiate(GameAssets.GetInstance().SpeedAbility.transform);
+        abilityTransform.position = new Vector3(xPosition,yPosition);
         Ability ability = abilityTransform.GetComponent<Ability>();
         abilitesList.Add(ability);
 

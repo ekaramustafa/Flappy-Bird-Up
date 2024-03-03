@@ -5,8 +5,7 @@ using UnityEngine;
 public abstract class Ability: MonoBehaviour
 {
 
-    [SerializeField]
-    private Effect ability;
+    protected Effect ability;
     
 
     
@@ -17,11 +16,21 @@ public abstract class Ability: MonoBehaviour
         gameObject.transform.position += new Vector3(-1, 0, 0) * GameHandler.OBJECTS_MOVING_SPEED * Time.deltaTime;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Pipe")){
+            Destroy(gameObject);
+        }
+    }
+
 
     public enum Effect
     {
         SPEED,
         MASS,
-        IMMORTALITY
+        IMMORTALITY,
+        JUMP,
     }
+
+
 }

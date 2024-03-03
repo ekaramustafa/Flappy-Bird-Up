@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedAbility : Ability
+public class JumpAbility : Ability
 {
-
 
     private void Awake()
     {
-        ability = Effect.SPEED;
+        ability = Effect.JUMP;
     }
     public override void PerformAbility(GameObject gameObject)
     {
-        GameHandler.OBJECTS_MOVING_SPEED *= 1.5f;
+        Bird bird = gameObject.GetComponent<Bird>();
+        bird.SetJumpSpeed(bird.GetJumpSpeed() * 2);
         Destroy(this.gameObject);
-    }
 
+
+    }
 }
