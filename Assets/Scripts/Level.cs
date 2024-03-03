@@ -22,7 +22,7 @@ public class Level : MonoBehaviour
     private const float BIRD_X_POSITION = 0f;
 
     [SerializeField]
-    public const float pipeMoveSpeed = 30f;
+    public const float objectsMoveSpeed = 30f;
     [SerializeField]
     private Bird bird;
 
@@ -33,6 +33,11 @@ public class Level : MonoBehaviour
     private float pipeSpawnTimerMax;
     private float gapSize;
     private int pipesSpawned;
+
+
+    private List<SpecialAbility> abililitesList;
+
+
     private State state;
 
     public enum Difficutly
@@ -59,13 +64,18 @@ public class Level : MonoBehaviour
         pipesPassedCount = 0;
         instance = this;
         state = State.WaitingToStart;
+        abililitesList = new List<SpecialAbility>();
     }
     private void Start()
     {
         bird.OnDied += Bird_OnDied;
         bird.OnStartedPlaying += Bird_OnstartedPlaying;
+
+        
+        HandleAbilitySpawning();
      
     }
+
 
     private void Bird_OnstartedPlaying(object sender, EventArgs e)
     {
@@ -88,8 +98,31 @@ public class Level : MonoBehaviour
         {
             HandlePipeMovement();
             HandlePipeSwapning();
+
+            HandleAbilityMovement();
         }
 
+    }
+
+    private void HandleAbilityMovement()
+    {
+        foreach (SpecialAbility specialAbility in abililitesList)
+        {
+            specialAbility.Move();
+        }
+    }
+
+    private void HandleAbilitySpawning()
+    {
+        CreateSpecialAbility();
+    }
+
+    private void CreateSpecialAbility()
+    {
+        Transform abilityTransform = Instantiate(GameAssets.GetInstance().pfPipeHead);
+        abilityTransform.position = new Vector3(10,10);
+        SpecialAbility specialAbility = new SpecialAbility(abilityTransform);
+        abililitesList.Add(specialAbility);
     }
 
     private void HandlePipeSwapning()
@@ -215,6 +248,24 @@ public class Level : MonoBehaviour
     }
 
 
+    private class SpecialAbility
+    {
+        private Transform transform;
+
+        public SpecialAbility(Transform transform)
+        {
+            this.transform = transform;
+        }
+
+        public void Move()
+        {
+            transform.position += new Vector3(-1, 0, 0) * objectsMoveSpeed * Time.deltaTime;
+
+        }
+
+
+    }
+
     /*
      * Represents a single Pipe
      */
@@ -235,8 +286,8 @@ public class Level : MonoBehaviour
 
         public void Move()
         {
-            pipeHeadTransform.position += new Vector3(-1, 0, 0) * pipeMoveSpeed * Time.deltaTime;
-            pipeBodyTransform.position += new Vector3(-1, 0, 0) * pipeMoveSpeed * Time.deltaTime;
+            pipeHeadTransform.position += new Vector3(-1, 0, 0) * objectsMoveSpeed * Time.deltaTime;
+            pipeBodyTransform.position += new Vector3(-1, 0, 0) * objectsMoveSpeed * Time.deltaTime;
 
         }
 

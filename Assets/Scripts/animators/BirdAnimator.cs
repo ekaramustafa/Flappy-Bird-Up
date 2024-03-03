@@ -29,6 +29,7 @@ public class BirdAnimator : MonoBehaviour
 
     private void BirdAnimator_OnDied(object sender, System.EventArgs e)
     {
+        animator.StopPlayback();
         animator.SetBool(IS_PLAYING,false);
     }
 
