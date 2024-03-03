@@ -938,9 +938,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc9b8236a327ed74cb4a41a8548bc8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeHeadSprite: {fileID: 21300000, guid: 165625e1f34d18e419d1c11d5ac1e5c6, type: 3}
   pfPipeHead: {fileID: 8303414188419575851, guid: bb3623c409e5a514ab2310b60e8d15e4, type: 3}
   pfPipeBody: {fileID: 499837510736591496, guid: 92509e797f17cdf45bfdad28adcbfe88, type: 3}
+  abilitySO: {fileID: 0}
 --- !u!1 &729647345
 GameObject:
   m_ObjectHideFlags: 0

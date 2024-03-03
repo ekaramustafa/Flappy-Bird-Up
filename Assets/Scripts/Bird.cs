@@ -74,6 +74,10 @@ public class Bird : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Interactable"))
+        {
+
+        }
         OnDied?.Invoke(this, EventArgs.Empty);
         state = State.Dead;
     }

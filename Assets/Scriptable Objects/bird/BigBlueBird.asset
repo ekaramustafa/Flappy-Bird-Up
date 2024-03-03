@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8ebddb3da3adc42bd9cb35220c9760, type: 3}
+  m_Name: BigBlueBird
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1111546806721587337, guid: 0c6b4087be1c8984989b77955f1cc287, type: 3}
+  runtimeAnimatorController: {fileID: 9100000, guid: 29117399a1621d94eb5242a2d69328c1, type: 2}
+  radius: 2
+  mass: 15

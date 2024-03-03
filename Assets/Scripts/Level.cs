@@ -36,6 +36,9 @@ public class Level : MonoBehaviour
 
 
     private List<SpecialAbility> abililitesList;
+    private float abilitiesSpawnTimer;
+    private float abilitiesSpawnTimerMax;
+    private int abilitiesSpawned;
 
 
     private State state;
@@ -65,6 +68,9 @@ public class Level : MonoBehaviour
         instance = this;
         state = State.WaitingToStart;
         abililitesList = new List<SpecialAbility>();
+        abilitiesSpawned = 0;
+        abilitiesSpawnTimerMax = 5f;
+        abilitiesSpawnTimer = 0f;
     }
     private void Start()
     {
@@ -98,7 +104,6 @@ public class Level : MonoBehaviour
         {
             HandlePipeMovement();
             HandlePipeSwapning();
-
             HandleAbilityMovement();
         }
 
@@ -119,10 +124,12 @@ public class Level : MonoBehaviour
 
     private void CreateSpecialAbility()
     {
-        Transform abilityTransform = Instantiate(GameAssets.GetInstance().pfPipeHead);
+        Transform abilityTransform = Instantiate(GameAssets.GetInstance().abilitySO.transform);
         abilityTransform.position = new Vector3(10,10);
         SpecialAbility specialAbility = new SpecialAbility(abilityTransform);
         abililitesList.Add(specialAbility);
+        
+
     }
 
     private void HandlePipeSwapning()

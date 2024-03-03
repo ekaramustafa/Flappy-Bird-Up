@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "BirdSO", menuName = "ScriptableObjects/BirdScriptableObjects", order = 1)]
+[CreateAssetMenu(fileName = "BirdSO", menuName = "ScriptableObjects/BirdScriptableObject", order = 1)]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
