@@ -33,7 +33,6 @@ public class GameOverWindow : MonoBehaviour
     private void Start()
     {
         bird.OnDied += Bird_OnDied;
-        Debug.Log("Damn");
         Hide();
     }
 

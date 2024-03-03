@@ -76,14 +76,25 @@ public class Bird : MonoBehaviour
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Interactable"))
         {
-
+            GameObject collidedObject = collision.gameObject;
+            Ability ability = collidedObject.GetComponent<Ability>();
+            ability.PerformAbility(this.gameObject);
         }
-        OnDied?.Invoke(this, EventArgs.Empty);
-        state = State.Dead;
+        else
+        {
+            OnDied?.Invoke(this, EventArgs.Empty);
+            state = State.Dead;
+        }
+        
     }
 
-    public bool IsPlaying()
+    public void SetJumpSpeed(float value)
     {
-        return state == State.Playing;
+        jumpSpeed = value;
+    }
+
+    public float GetJumpSpeed()
+    {
+        return jumpSpeed;
     }
 }

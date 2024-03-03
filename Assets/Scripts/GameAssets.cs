@@ -20,8 +20,6 @@ public class GameAssets : MonoBehaviour
     public Transform pfPipeHead;
     public Transform pfPipeBody;
 
-    public AbilitySO abilitySO;
-
-//    public Sprite  
+    public Transform ability;
 
 }

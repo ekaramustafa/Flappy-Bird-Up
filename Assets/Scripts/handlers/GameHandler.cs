@@ -6,15 +6,10 @@ using CodeMonkey.Utils;
 
 public class GameHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+    [SerializeField]
+    public static float OBJECTS_MOVING_SPEED { get; private set; } = 30f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }

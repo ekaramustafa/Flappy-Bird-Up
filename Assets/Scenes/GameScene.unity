@@ -940,7 +940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfPipeHead: {fileID: 8303414188419575851, guid: bb3623c409e5a514ab2310b60e8d15e4, type: 3}
   pfPipeBody: {fileID: 499837510736591496, guid: 92509e797f17cdf45bfdad28adcbfe88, type: 3}
-  abilitySO: {fileID: 0}
+  ability: {fileID: 649317109264314360, guid: dc45f355955fcc84fbd30bec357358ae, type: 3}
 --- !u!1 &729647345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,7 +1503,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252521469}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -52, z: 0}
+  m_LocalPosition: {x: 0, y: -60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1609,7 +1609,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495162304}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 52, z: 0}
+  m_LocalPosition: {x: 0, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

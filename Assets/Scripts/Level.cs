@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
+using Unity.VisualScripting;
 
 public class Level : MonoBehaviour
 {
@@ -21,8 +22,7 @@ public class Level : MonoBehaviour
     private const float PIPE_SPAWN_X_POSITION = 100f;
     private const float BIRD_X_POSITION = 0f;
 
-    [SerializeField]
-    public const float objectsMoveSpeed = 30f;
+
     [SerializeField]
     private Bird bird;
 
@@ -35,7 +35,7 @@ public class Level : MonoBehaviour
     private int pipesSpawned;
 
 
-    private List<SpecialAbility> abililitesList;
+    private List<Ability> abilitesList;
     private float abilitiesSpawnTimer;
     private float abilitiesSpawnTimerMax;
     private int abilitiesSpawned;
@@ -67,7 +67,7 @@ public class Level : MonoBehaviour
         pipesPassedCount = 0;
         instance = this;
         state = State.WaitingToStart;
-        abililitesList = new List<SpecialAbility>();
+        abilitesList = new List<Ability>();
         abilitiesSpawned = 0;
         abilitiesSpawnTimerMax = 5f;
         abilitiesSpawnTimer = 0f;
@@ -111,9 +111,15 @@ public class Level : MonoBehaviour
 
     private void HandleAbilityMovement()
     {
-        foreach (SpecialAbility specialAbility in abililitesList)
+        for(int i = 0; i < abilitesList.Count; i++)
         {
-            specialAbility.Move();
+            Ability ability = abilitesList[i];
+            if (ability.IsDestroyed())
+            {
+                abilitesList.Remove(ability);
+                continue;
+            }
+            ability.Move();
         }
     }
 
@@ -124,11 +130,10 @@ public class Level : MonoBehaviour
 
     private void CreateSpecialAbility()
     {
-        Transform abilityTransform = Instantiate(GameAssets.GetInstance().abilitySO.transform);
-        abilityTransform.position = new Vector3(10,10);
-        SpecialAbility specialAbility = new SpecialAbility(abilityTransform);
-        abililitesList.Add(specialAbility);
-        
+        Transform abilityTransform = Instantiate(GameAssets.GetInstance().ability.transform);
+        abilityTransform.position = new Vector3(40,10);
+        Ability ability = abilityTransform.GetComponent<Ability>();
+        abilitesList.Add(ability);
 
     }
 
@@ -255,23 +260,6 @@ public class Level : MonoBehaviour
     }
 
 
-    private class SpecialAbility
-    {
-        private Transform transform;
-
-        public SpecialAbility(Transform transform)
-        {
-            this.transform = transform;
-        }
-
-        public void Move()
-        {
-            transform.position += new Vector3(-1, 0, 0) * objectsMoveSpeed * Time.deltaTime;
-
-        }
-
-
-    }
 
     /*
      * Represents a single Pipe
@@ -293,8 +281,8 @@ public class Level : MonoBehaviour
 
         public void Move()
         {
-            pipeHeadTransform.position += new Vector3(-1, 0, 0) * objectsMoveSpeed * Time.deltaTime;
-            pipeBodyTransform.position += new Vector3(-1, 0, 0) * objectsMoveSpeed * Time.deltaTime;
+            pipeHeadTransform.position += new Vector3(-1, 0, 0) * GameHandler.OBJECTS_MOVING_SPEED * Time.deltaTime;
+            pipeBodyTransform.position += new Vector3(-1, 0, 0) * GameHandler.OBJECTS_MOVING_SPEED * Time.deltaTime;
 
         }
 
