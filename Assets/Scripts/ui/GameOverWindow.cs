@@ -10,14 +10,22 @@ public class GameOverWindow : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI scoreText;
     [SerializeField]
-    private Transform button;
+    private Transform retryButton;
+    [SerializeField]
+    private Transform menuButton;
     [SerializeField]
     private Bird bird;
 
+
     private void Awake()
     {
-        button.GetComponent<Button_UI>().ClickFunc = () => {
+        retryButton.GetComponent<Button_UI>().ClickFunc = () => {
             Loader.Load(Scene.GameScene);
+
+        };
+
+        menuButton.GetComponent<Button_UI>().ClickFunc = () => {
+            Loader.Load(Scene.MainMenu);
 
         };
     }

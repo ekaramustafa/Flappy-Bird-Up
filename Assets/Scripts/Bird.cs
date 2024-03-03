@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour
 {
-
     private Rigidbody2D rigidbody2D;
     private State state;
 
     public event EventHandler OnDied;
-    public event EventHandler OnstartedPlaying;
+    public event EventHandler OnStartedPlaying;
 
     [SerializeField]
     private float jumpSpeed = 40f;
+
+    [SerializeField]
+    private BirdSO birdSO;
 
     private enum State
     {
@@ -25,6 +27,18 @@ public class Bird : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         rigidbody2D.bodyType = RigidbodyType2D.Static;
+        state = State.WaitingToStart;
+
+        //decompose the BirdSO
+        GetComponent<SpriteRenderer>().sprite = birdSO.spriteRenderer;
+        GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
+        GetComponent<CircleCollider2D>().radius = birdSO.radius;
+        rigidbody2D.mass = birdSO.mass;
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void Update()
@@ -34,7 +48,7 @@ public class Bird : MonoBehaviour
             case State.WaitingToStart:
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    OnstartedPlaying?.Invoke(this, EventArgs.Empty);
+                    OnStartedPlaying?.Invoke(this, EventArgs.Empty);
                     state = State.Playing;
                     rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
                     Jump();
@@ -49,25 +63,19 @@ public class Bird : MonoBehaviour
             case State.Dead:
                 rigidbody2D.bodyType = RigidbodyType2D.Static;
                 break;
-
-        }
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-        {
-            Jump();
         }
     }
 
     private void Jump()
     {
-        rigidbody2D.velocity = Vector2.up * jumpSpeed;
+        // Preserve the horizontal velocity
+        rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpSpeed);
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         OnDied?.Invoke(this, EventArgs.Empty);
         state = State.Dead;
-
     }
 
     public bool IsPlaying()

@@ -63,7 +63,7 @@ public class Level : MonoBehaviour
     private void Start()
     {
         bird.OnDied += Bird_OnDied;
-        bird.OnstartedPlaying += Bird_OnstartedPlaying;
+        bird.OnStartedPlaying += Bird_OnstartedPlaying;
      
     }
 

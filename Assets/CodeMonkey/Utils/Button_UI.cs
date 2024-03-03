@@ -178,11 +178,11 @@ namespace CodeMonkey.Utils {
                 break;
             case HoverBehaviour.Change_Text_And_Color:
                     hoverBehaviourFunc_Enter = delegate () {
-                        hoverBehaviour_Text.SetText(hoverBehaviour_Text_Enter); 
+                        hoverBehaviour_Text.SetText(hoverBehaviour_Text_Enter);
+                        hoverBehaviour_Image.color = hoverBehaviour_Color_Enter;
                     };
                     hoverBehaviourFunc_Exit = delegate () { 
                         hoverBehaviour_Text.SetText(hoverBehaviour_Text_Exit);
-                        hoverBehaviour_Image.color = hoverBehaviour_Color_Enter;
                         hoverBehaviour_Image.color = hoverBehaviour_Color_Exit;
                     };
                     break;
