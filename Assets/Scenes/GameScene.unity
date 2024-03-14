@@ -946,6 +946,11 @@ MonoBehaviour:
   abilities:
   - {fileID: 649317109264314360, guid: fc6b3a6e8f2da5a4e817ae38445a1d82, type: 3}
   - {fileID: 649317109264314360, guid: dc45f355955fcc84fbd30bec357358ae, type: 3}
+  audioClips:
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: 68da67bb10e0c104aab5500c943d3e76, type: 3}
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: 73cc7da35afe82f4f835d68f2ab2630d, type: 3}
 --- !u!1 &729647345
 GameObject:
   m_ObjectHideFlags: 0

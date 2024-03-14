@@ -41,7 +41,7 @@ public class GameOverWindow : MonoBehaviour
     {
         scoreText.SetText(Level.GetInstance().GetPipePassed().ToString());
 
-        if(Level.GetInstance().GetPipePassed() >= Score.GetHighestScore())
+        if(Level.GetInstance().GetPipePassed() >= Score.GetHighestScore() && Level.GetInstance().GetPipePassed() != 0)
         {
             yourScoreText.SetText("New Highest Score!");
         }

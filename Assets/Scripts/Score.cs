@@ -9,7 +9,7 @@ public static class Score
 
     public static void Start()
     {
-        ResetHeighestScore();
+        //ResetHeighestScore();
     }
     public static int GetHighestScore()
     {

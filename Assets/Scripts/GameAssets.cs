@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +21,22 @@ public class GameAssets : MonoBehaviour
 
     public Transform GetRandomAbility()
     {
-        return abilities[Random.Range(0, abilities.Count)];
+        return abilities[UnityEngine.Random.Range(0, abilities.Count)];
     }
 
     public Transform pfPipeHead;
     public Transform pfPipeBody;
 
     public List<Transform> abilities;
+
+
+    public List<SoundAudioClip> audioClips;
+    [Serializable]
+    public class SoundAudioClip
+    {
+        public SoundManager.Sound sound;
+        public AudioClip audioClip;
+
+    }
 
 }
