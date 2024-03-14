@@ -28,6 +28,9 @@ public class GameOverWindow : MonoBehaviour
             Loader.Load(Scene.MainMenu);
 
         };
+
+        retryButton.GetComponent<Button_UI>().AddButtonSounds();
+        menuButton.GetComponent<Button_UI>().AddButtonSounds();
     }
 
     private void Start()

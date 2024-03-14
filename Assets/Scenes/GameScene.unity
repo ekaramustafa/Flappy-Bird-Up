@@ -176,7 +176,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highestScoreText: {fileID: 1006912524}
   scoreText: {fileID: 1081019541}
-  yourScoreText: {fileID: 0}
 --- !u!1 &49518779
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,9 +947,13 @@ MonoBehaviour:
   - {fileID: 649317109264314360, guid: dc45f355955fcc84fbd30bec357358ae, type: 3}
   audioClips:
   - sound: 0
-    audioClip: {fileID: 8300000, guid: 68da67bb10e0c104aab5500c943d3e76, type: 3}
+    audioClip: {fileID: 8300000, guid: ed16b60e680743d47a13fb8f93b21dc4, type: 3}
   - sound: 1
     audioClip: {fileID: 8300000, guid: 73cc7da35afe82f4f835d68f2ab2630d, type: 3}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: 7ee51524b4e36554f92f522a6bd265e0, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: c53c3cd5e519d7741a15bed2f1e9ef6b, type: 3}
 --- !u!1 &729647345
 GameObject:
   m_ObjectHideFlags: 0
