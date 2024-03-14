@@ -19,9 +19,12 @@ public class MenuWindow : MonoBehaviour
         startButton.GetComponent<Button_UI>().ClickFunc = () => {
             Loader.Load(Scene.GameScene);
         };
+        startButton.GetComponent<Button_UI>().AddButtonSounds();
         exitButton.GetComponent<Button_UI>().ClickFunc = () => {
             Application.Quit();
         };
+        exitButton.GetComponent<Button_UI>().AddButtonSounds();
+
     }
     void Start()
     {
