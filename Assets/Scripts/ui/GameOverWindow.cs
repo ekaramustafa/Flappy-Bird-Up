@@ -7,14 +7,14 @@ using UnityEngine;
 
 public class GameOverWindow : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI scoreText;
-    [SerializeField]
-    private Transform retryButton;
-    [SerializeField]
-    private Transform menuButton;
-    [SerializeField]
-    private Bird bird;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI highestScoreText;
+    [SerializeField] private TextMeshProUGUI yourScoreText;
+    [SerializeField] private Transform retryButton;
+    [SerializeField] private Transform menuButton;
+    [SerializeField] private Bird bird;
+
+    
 
 
     private void Awake()
@@ -34,11 +34,21 @@ public class GameOverWindow : MonoBehaviour
     {
         bird.OnDied += Bird_OnDied;
         Hide();
+        highestScoreText.SetText(Score.GetHighestScore().ToString());
     }
 
     private void Bird_OnDied(object sender, System.EventArgs e)
     {
         scoreText.SetText(Level.GetInstance().GetPipePassed().ToString());
+
+        if(Level.GetInstance().GetPipePassed() >= Score.GetHighestScore())
+        {
+            yourScoreText.SetText("New Highest Score!");
+        }
+        else
+        {
+            yourScoreText.SetText("Your Score");
+        }
         Show();
     }
 
