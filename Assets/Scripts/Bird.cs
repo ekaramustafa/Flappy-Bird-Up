@@ -68,6 +68,7 @@ public class Bird : MonoBehaviour
 
     private void Jump()
     {
+        SoundManager.PlaySound(SoundManager.Sound.Jump);
         // Preserve the horizontal velocity
         rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpSpeed);
     }
@@ -84,8 +85,9 @@ public class Bird : MonoBehaviour
         {
             OnDied?.Invoke(this, EventArgs.Empty);
             state = State.Dead;
+            SoundManager.PlaySound(SoundManager.Sound.Death);
         }
-        
+
     }
 
     public void SetJumpSpeed(float value)

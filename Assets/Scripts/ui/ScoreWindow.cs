@@ -7,7 +7,6 @@ public class ScoreWindow : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI highestScoreText;
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI yourScoreText;
     // Start is called before the first frame update
 
     private void Awake()
