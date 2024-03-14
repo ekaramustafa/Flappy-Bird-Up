@@ -149,8 +149,7 @@ public class Level : MonoBehaviour
         {
             return;
         }
-        //random selection??
-        Transform abilityTransform = Instantiate(GameAssets.GetInstance().SpeedAbility.transform);
+        Transform abilityTransform = Instantiate(GameAssets.GetInstance().GetRandomAbility());
         abilityTransform.position = new Vector3(xPosition,yPosition);
         Ability ability = abilityTransform.GetComponent<Ability>();
         abilitesList.Add(ability);

@@ -17,10 +17,15 @@ public class GameAssets : MonoBehaviour
         instance = this;
     }
 
+
+    public Transform GetRandomAbility()
+    {
+        return abilities[Random.Range(0, abilities.Count)];
+    }
+
     public Transform pfPipeHead;
     public Transform pfPipeBody;
 
-    public Transform JumpAbility;
-    public Transform SpeedAbility;
+    public List<Transform> abilities;
 
 }
