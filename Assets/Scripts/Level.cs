@@ -88,8 +88,8 @@ public class Level : MonoBehaviour
 
     private void Bird_OnDied(object sender, EventArgs e)
     {
+        Score.SaveHighestScore(pipesPassedCount);
         state = State.BirdDead;
-   
     }
 
     public static Level GetInstance()

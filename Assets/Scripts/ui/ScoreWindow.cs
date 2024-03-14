@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class ScoreWindow : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI highestScoreText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI yourScoreText;
     // Start is called before the first frame update
 
     private void Awake()
@@ -13,6 +15,7 @@ public class ScoreWindow : MonoBehaviour
     }
     void Start()
     {
+        highestScoreText.SetText("HIGHEST: " + Score.GetHighestScore().ToString());
     }
 
     // Update is called once per frame

@@ -26,6 +26,11 @@ public class GameHandler : MonoBehaviour
         _objectsMovingSpeed = 30f;
     }
 
+    private void Start()
+    {
+        Score.Start();
+    }
+
 
 
 }
