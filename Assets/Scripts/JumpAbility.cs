@@ -5,6 +5,8 @@ using UnityEngine;
 public class JumpAbility : Ability
 {
 
+    private float originalJumpSpeed;
+
     private void Awake()
     {
         ability = Effect.JUMP;
@@ -12,9 +14,17 @@ public class JumpAbility : Ability
     public override void PerformAbility(GameObject gameObject)
     {
         Bird bird = gameObject.GetComponent<Bird>();
-        bird.SetJumpSpeed(bird.GetJumpSpeed() * 2);
+        originalJumpSpeed = bird.GetJumpSpeed();
+        bird.SetJumpSpeed(originalJumpSpeed * 1.5f);
+        StartCoroutine(ResetAbilityEffectAfterDelay(abilityEffectTime));
+    }
+
+
+    public override IEnumerator ResetAbilityEffectAfterDelay(float delay)
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(delay);
+        gameObject.GetComponent<Bird>(); 
         Destroy(this.gameObject);
-
-
     }
 }

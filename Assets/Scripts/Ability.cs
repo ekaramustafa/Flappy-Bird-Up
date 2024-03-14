@@ -6,10 +6,17 @@ public abstract class Ability: MonoBehaviour
 {
 
     protected Effect ability;
-    
+    protected float abilityEffectTime;
 
-    
+
+    private void Awake()
+    {
+        abilityEffectTime = 5f;
+    }
+
     public abstract void PerformAbility(GameObject gameObject);
+
+    public abstract IEnumerator ResetAbilityEffectAfterDelay(float delay);
 
     public void Move()
     {
