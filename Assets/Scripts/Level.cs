@@ -71,6 +71,7 @@ public class Level : MonoBehaviour
         abilitiesSpawned = 0;
         abilitiesSpawnTimerMax = 5f;
         abilitiesSpawnTimer = 0f;
+
     }
     private void Start()
     {
@@ -276,6 +277,15 @@ public class Level : MonoBehaviour
     public int GetPipePassed()
     {
         return pipesPassedCount;
+    }
+
+ 
+    //make the spawning faster/slower
+    public void ScaleSpawnerTimers(float scale)
+    {
+        abilitiesSpawnTimerMax = abilitiesSpawnTimerMax / scale;
+        pipeSpawnTimerMax = pipeSpawnTimerMax / scale;
+        Debug.Log("The value of pipeSpawnTimerMax : " + pipeSpawnTimerMax);
     }
 
 

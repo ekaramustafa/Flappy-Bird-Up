@@ -7,12 +7,23 @@ using CodeMonkey.Utils;
 public class GameHandler : MonoBehaviour
 {
 
+    public static float _objectsMovingSpeed = 30f;
     [SerializeField]
-    public static float OBJECTS_MOVING_SPEED { get; set; } = 30f;
+    public static float OBJECTS_MOVING_SPEED { get
+        {
+            return _objectsMovingSpeed;
+        }
+        set
+        {         
+            float ratio = value / _objectsMovingSpeed;
+            Level.GetInstance().ScaleSpawnerTimers(ratio);
+            _objectsMovingSpeed = value;
+            
+        } }
 
     private void Awake()
     {
-        OBJECTS_MOVING_SPEED = 30f;
+        _objectsMovingSpeed = 30f;
     }
 
 
