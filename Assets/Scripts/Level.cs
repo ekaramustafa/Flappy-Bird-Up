@@ -146,7 +146,6 @@ public class Level : MonoBehaviour
         Collider2D overlapCollider = Physics2D.OverlapCircle(new Vector2(xPosition,yPosition), spawnRadiusOffset);
         if(overlapCollider != null)
         {
-            CreateAbility(yPosition, xPosition);
             return;
         }
         //random selection??

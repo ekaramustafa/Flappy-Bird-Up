@@ -940,7 +940,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfPipeHead: {fileID: 8303414188419575851, guid: bb3623c409e5a514ab2310b60e8d15e4, type: 3}
   pfPipeBody: {fileID: 499837510736591496, guid: 92509e797f17cdf45bfdad28adcbfe88, type: 3}
-  ability: {fileID: 649317109264314360, guid: dc45f355955fcc84fbd30bec357358ae, type: 3}
+  JumpAbility: {fileID: 649317109264314360, guid: fc6b3a6e8f2da5a4e817ae38445a1d82, type: 3}
+  SpeedAbility: {fileID: 649317109264314360, guid: dc45f355955fcc84fbd30bec357358ae, type: 3}
 --- !u!1 &729647345
 GameObject:
   m_ObjectHideFlags: 0
