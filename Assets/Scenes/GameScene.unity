@@ -1159,6 +1159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bird: {fileID: 1991399916}
+  pipeSpawnTimerMax: 1
+  abilitiesSpawnTimerMax: 5
+  coinSpawnTimerMax: 5
 --- !u!1 &856314570
 GameObject:
   m_ObjectHideFlags: 0

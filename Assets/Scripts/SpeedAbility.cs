@@ -26,4 +26,5 @@ public class SpeedAbility : Ability
         GameHandler.OBJECTS_MOVING_SPEED = originalSpeed;
         Destroy(this.gameObject);
     }
+
 }

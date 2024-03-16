@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability: MonoBehaviour
+public abstract class Ability: MonoBehaviour, IInteractable
 {
 
     protected Effect ability;
     protected float abilityEffectTime;
-
 
     private void Awake()
     {
@@ -15,6 +14,12 @@ public abstract class Ability: MonoBehaviour
     }
 
     public abstract void PerformAbility(GameObject gameObject);
+
+    public void Interact(GameObject gameObject)
+    {
+        PerformAbility(gameObject);
+    }
+
 
     public abstract IEnumerator ResetAbilityEffectAfterDelay(float delay);
 
@@ -37,6 +42,11 @@ public abstract class Ability: MonoBehaviour
         MASS,
         IMMORTALITY,
         JUMP,
+    }
+
+    private void Update()
+    {
+        Move();
     }
 
 

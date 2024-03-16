@@ -27,4 +27,6 @@ public class JumpAbility : Ability
         gameObject.GetComponent<Bird>(); 
         Destroy(this.gameObject);
     }
+
+ 
 }

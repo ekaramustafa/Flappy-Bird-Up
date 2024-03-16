@@ -30,15 +30,18 @@ public class Level : MonoBehaviour
     private int pipesPassedCount;
 
     private float pipeSpawnTimer;
-    private float pipeSpawnTimerMax;
+    [SerializeField] private float pipeSpawnTimerMax = 1f;
     private float gapSize;
     private int pipesSpawned;
 
 
-    private List<Ability> abilitesList;
     private float abilitiesSpawnTimer;
-    private float abilitiesSpawnTimerMax;
-    private int abilitiesSpawned;
+    [SerializeField] private float abilitiesSpawnTimerMax = 5f;
+
+
+    private float coinSpawnTimer;
+    [SerializeField] private float coinSpawnTimerMax = 5f;
+
 
 
     private State state;
@@ -61,16 +64,15 @@ public class Level : MonoBehaviour
     private void Awake()
     {
         pipeList = new List<Pipe>();
-        pipeSpawnTimerMax = 1f;
         SetDifficulty(Difficutly.Easy); //set the gapSize
         pipesSpawned = 0;
         pipesPassedCount = 0;
         instance = this;
         state = State.WaitingToStart;
-        abilitesList = new List<Ability>();
-        abilitiesSpawned = 0;
-        abilitiesSpawnTimerMax = 5f;
+        
         abilitiesSpawnTimer = 0f;
+
+        coinSpawnTimer = 0f;
 
     }
     private void Start()
@@ -103,23 +105,38 @@ public class Level : MonoBehaviour
             HandlePipeMovement();
             HandlePipeSwapning();
             HandleAbilitySpawning();
-            HandleAbilityMovement();
+            HandleCoinSpawning();
         }
 
     }
 
-    private void HandleAbilityMovement()
+    private void HandleCoinSpawning()
     {
-        for(int i = 0; i < abilitesList.Count; i++)
+        coinSpawnTimer -= Time.deltaTime;
+        if(coinSpawnTimer < 0)
         {
-            Ability ability = abilitesList[i];
-            if (ability.IsDestroyed())
-            {
-                abilitesList.Remove(ability);
-                continue;
-            }
-            ability.Move();
+            coinSpawnTimer += coinSpawnTimerMax;
+            float heightEdgeLimit = 10f;
+            float minHeight = -CAMERA_ORTHO_SIZE + heightEdgeLimit;
+            float maxHeight = CAMERA_ORTHO_SIZE - heightEdgeLimit;
+            float height = UnityEngine.Random.Range(minHeight, maxHeight);
+
+            float minX = 50;
+            float maxX = 100;
+            float xPosition = UnityEngine.Random.Range(minX, maxX);
+            CreateCoin(height, xPosition);
         }
+    }
+
+    private void CreateCoin(float yPosition, float xPosition)
+    {
+        if (IsCollidingAnything(yPosition, xPosition)) return;
+        Transform coinTransform = Instantiate(GameAssets.GetInstance().GetRandomCoin());
+        coinTransform.position = new Vector3(xPosition, yPosition);
+        Coin coin = coinTransform.GetComponent<Coin>();
+        //Transform abilityTransform = Instantiate(GameAssets.GetInstance().GetRandomAbility());
+        //abilityTransform.position = new Vector3(xPosition, yPosition);
+        //Ability ability = abilityTransform.GetComponent<Ability>();
     }
 
     private void HandleAbilitySpawning()
@@ -133,27 +150,33 @@ public class Level : MonoBehaviour
             float maxHeight = CAMERA_ORTHO_SIZE - heightEdgeLimit;
             float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
-            float minX = 40;
+            float minX = 50;
             float maxX = 100;
             float xPosition = UnityEngine.Random.Range(minX, maxX);
             CreateAbility(height,xPosition);
-            abilitiesSpawned++;
         }
     }
 
     private void CreateAbility(float yPosition, float xPosition)
     {
-        float spawnRadiusOffset = 2f;
-        Collider2D overlapCollider = Physics2D.OverlapCircle(new Vector2(xPosition,yPosition), spawnRadiusOffset);
-        if(overlapCollider != null)
-        {
-            return;
-        }
+        if (IsCollidingAnything(yPosition, xPosition)) return;
+
         Transform abilityTransform = Instantiate(GameAssets.GetInstance().GetRandomAbility());
         abilityTransform.position = new Vector3(xPosition,yPosition);
         Ability ability = abilityTransform.GetComponent<Ability>();
-        abilitesList.Add(ability);
 
+    }
+
+
+    private bool IsCollidingAnything(float yPosition, float xPosition)
+    {
+        float spawnRadiusOffset = 2.5f;
+        Collider2D overlapCollider = Physics2D.OverlapCircle(new Vector2(xPosition, yPosition), spawnRadiusOffset);
+        if (overlapCollider != null)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void HandlePipeSwapning()

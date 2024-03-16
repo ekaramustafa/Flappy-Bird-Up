@@ -13,6 +13,8 @@ public class Bird : MonoBehaviour
     [SerializeField]
     private float jumpSpeed = 40f;
 
+    private int coin;
+
     [SerializeField]
     private BirdSO birdSO;
 
@@ -28,6 +30,7 @@ public class Bird : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         rigidbody2D.bodyType = RigidbodyType2D.Static;
         state = State.WaitingToStart;
+        coin = 0;
 
         //decompose the BirdSO
         GetComponent<SpriteRenderer>().sprite = birdSO.spriteRenderer;
@@ -78,8 +81,8 @@ public class Bird : MonoBehaviour
         if(collision.gameObject.layer == LayerMask.NameToLayer("Interactable"))
         {
             GameObject collidedObject = collision.gameObject;
-            Ability ability = collidedObject.GetComponent<Ability>();
-            ability.PerformAbility(this.gameObject);
+            IInteractable interactable = collidedObject.GetComponent<IInteractable>();
+            interactable.Interact(this.gameObject);
         }
         else
         {
@@ -98,5 +101,10 @@ public class Bird : MonoBehaviour
     public float GetJumpSpeed()
     {
         return jumpSpeed;
+    }
+
+    internal void AddCoin(int value)
+    {
+        coin += value;
     }
 }
