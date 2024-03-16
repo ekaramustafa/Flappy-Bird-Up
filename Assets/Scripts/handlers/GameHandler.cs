@@ -28,7 +28,7 @@ public class GameHandler : MonoBehaviour
 
     private void Start()
     {
-        Score.Start();
+        ScoreManager.Start();
     }
 
 

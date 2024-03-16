@@ -37,14 +37,14 @@ public class GameOverWindow : MonoBehaviour
     {
         bird.OnDied += Bird_OnDied;
         Hide();
-        highestScoreText.SetText(Score.GetHighestScore().ToString());
+        highestScoreText.SetText(ScoreManager.GetHighestScore().ToString());
     }
 
     private void Bird_OnDied(object sender, System.EventArgs e)
     {
         scoreText.SetText(Level.GetInstance().GetPipePassed().ToString());
 
-        if(Level.GetInstance().GetPipePassed() >= Score.GetHighestScore() && Level.GetInstance().GetPipePassed() != 0)
+        if(Level.GetInstance().GetPipePassed() >= ScoreManager.GetHighestScore() && Level.GetInstance().GetPipePassed() != 0)
         {
             yourScoreText.SetText("New Highest Score!");
         }

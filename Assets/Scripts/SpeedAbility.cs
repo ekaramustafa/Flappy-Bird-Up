@@ -9,7 +9,7 @@ public class SpeedAbility : Ability
     private void Awake()
     {
         ability = Effect.SPEED;
-        abilityEffectTime = 5f;
+        abilityEffectTime = 3f;
     }
     public override void PerformAbility(GameObject gameObject)
     {
@@ -26,4 +26,5 @@ public class SpeedAbility : Ability
         GameHandler.OBJECTS_MOVING_SPEED = originalSpeed;
         Destroy(this.gameObject);
     }
+
 }
