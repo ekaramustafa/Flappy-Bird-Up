@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Score
+public static class ScoreManager
 {
     private const string HIGHEST_SCORE = "HighestScore";
 

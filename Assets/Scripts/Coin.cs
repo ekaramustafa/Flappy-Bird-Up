@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour, IInteractable
 {
+
+
     [SerializeField]
     CoinSO coinSO;
     public void Interact(GameObject gameObject)
     {
-        gameObject.GetComponent<Bird>().AddCoin(coinSO.value);
+        CoinManager.AddCoin(coinSO.value);
+        SoundManager.PlaySound(SoundManager.Sound.CoinCollect);
+        Destroy(this.gameObject);
     }
 
     private void Update()

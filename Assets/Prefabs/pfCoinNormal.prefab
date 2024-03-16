@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6827293989766694058}
   - component: {fileID: -6420650813025965676}
   m_Layer: 6
-  m_Name: pfCoin
+  m_Name: pfCoinNormal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,3 +114,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c440976e8aeb3d24bb50bd07eca1e51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinSO: {fileID: 11400000, guid: d419801f51025204f9f6f961e5354aaa, type: 2}

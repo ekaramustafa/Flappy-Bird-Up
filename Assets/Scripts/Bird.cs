@@ -13,7 +13,6 @@ public class Bird : MonoBehaviour
     [SerializeField]
     private float jumpSpeed = 40f;
 
-    private int coin;
 
     [SerializeField]
     private BirdSO birdSO;
@@ -30,7 +29,6 @@ public class Bird : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         rigidbody2D.bodyType = RigidbodyType2D.Static;
         state = State.WaitingToStart;
-        coin = 0;
 
         //decompose the BirdSO
         GetComponent<SpriteRenderer>().sprite = birdSO.spriteRenderer;
@@ -103,8 +101,4 @@ public class Bird : MonoBehaviour
         return jumpSpeed;
     }
 
-    internal void AddCoin(int value)
-    {
-        coin += value;
-    }
 }

@@ -7,6 +7,7 @@ public class ScoreWindow : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI highestScoreText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI coinText;
     // Start is called before the first frame update
 
     private void Awake()
@@ -14,12 +15,14 @@ public class ScoreWindow : MonoBehaviour
     }
     void Start()
     {
-        highestScoreText.SetText("HIGHEST: " + Score.GetHighestScore().ToString());
+        highestScoreText.SetText("HIGHEST: " + ScoreManager.GetHighestScore().ToString());
+        coinText.SetText(CoinManager.GetCoin().ToString());
     }
 
     // Update is called once per frame
     void Update()
     {
         scoreText.SetText(Level.GetInstance().GetPipePassed().ToString());
+        coinText.SetText(CoinManager.GetCoin().ToString());
     }
 }

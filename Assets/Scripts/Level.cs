@@ -36,11 +36,11 @@ public class Level : MonoBehaviour
 
 
     private float abilitiesSpawnTimer;
-    [SerializeField] private float abilitiesSpawnTimerMax = 5f;
+    [SerializeField] private float abilitiesSpawnTimerMax = 8f;
 
 
     private float coinSpawnTimer;
-    [SerializeField] private float coinSpawnTimerMax = 5f;
+    [SerializeField] private float coinSpawnTimerMax = 8f;
 
 
 
@@ -70,9 +70,9 @@ public class Level : MonoBehaviour
         instance = this;
         state = State.WaitingToStart;
         
-        abilitiesSpawnTimer = 0f;
+        abilitiesSpawnTimer = abilitiesSpawnTimerMax;
 
-        coinSpawnTimer = 0f;
+        coinSpawnTimer = coinSpawnTimerMax;
 
     }
     private void Start()
@@ -90,7 +90,7 @@ public class Level : MonoBehaviour
 
     private void Bird_OnDied(object sender, EventArgs e)
     {
-        Score.SaveHighestScore(pipesPassedCount);
+        ScoreManager.SaveHighestScore(pipesPassedCount);
         state = State.BirdDead;
     }
 
@@ -134,9 +134,6 @@ public class Level : MonoBehaviour
         Transform coinTransform = Instantiate(GameAssets.GetInstance().GetRandomCoin());
         coinTransform.position = new Vector3(xPosition, yPosition);
         Coin coin = coinTransform.GetComponent<Coin>();
-        //Transform abilityTransform = Instantiate(GameAssets.GetInstance().GetRandomAbility());
-        //abilityTransform.position = new Vector3(xPosition, yPosition);
-        //Ability ability = abilityTransform.GetComponent<Ability>();
     }
 
     private void HandleAbilitySpawning()
@@ -170,7 +167,7 @@ public class Level : MonoBehaviour
 
     private bool IsCollidingAnything(float yPosition, float xPosition)
     {
-        float spawnRadiusOffset = 2.5f;
+        float spawnRadiusOffset = 4f;
         Collider2D overlapCollider = Physics2D.OverlapCircle(new Vector2(xPosition, yPosition), spawnRadiusOffset);
         if (overlapCollider != null)
         {
@@ -310,7 +307,7 @@ public class Level : MonoBehaviour
         Debug.Log("The value of pipeSpawnTimerMax : " + pipeSpawnTimerMax);
     }
 
-
+    
 
     /*
      * Represents a single Pipe

@@ -10,7 +10,7 @@ public abstract class Ability: MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        abilityEffectTime = 5f;
+        abilityEffectTime = 2f;
     }
 
     public abstract void PerformAbility(GameObject gameObject);
