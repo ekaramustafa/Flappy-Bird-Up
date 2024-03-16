@@ -82,7 +82,6 @@ public class Level : MonoBehaviour
      
     }
 
-
     private void Bird_OnstartedPlaying(object sender, EventArgs e)
     {
         state = State.Playing;
