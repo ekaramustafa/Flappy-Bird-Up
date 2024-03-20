@@ -53,7 +53,6 @@ public class Level : MonoBehaviour
         SetDifficulty(Difficutly.Easy); //set the gapSize
         pipesSpawned = 0;
         instance = this;
-        GameHandler.state = GameHandler.State.WaitingToStart;
 
         abilitiesSpawnTimer = abilitiesSpawnTimerMax;
         coinSpawnTimer = coinSpawnTimerMax;

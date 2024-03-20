@@ -27,8 +27,6 @@ public class Bird : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         rigidbody2D.bodyType = RigidbodyType2D.Static;
-        GameHandler.state = GameHandler.State.WaitingToStart;
-        //state = State.WaitingToStart;
 
         //decompose the BirdSO
         GetComponent<SpriteRenderer>().sprite = birdSO.spriteRenderer;
@@ -47,6 +45,8 @@ public class Bird : MonoBehaviour
 
         switch (GameHandler.state)
         {
+            case GameHandler.State.CosmeticSelection:
+                break;
             case GameHandler.State.WaitingToStart:
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {

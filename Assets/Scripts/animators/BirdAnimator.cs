@@ -9,7 +9,6 @@ public class BirdAnimator : MonoBehaviour
 
     private Animator animator;
 
-
     private Bird bird;
     private void Awake()
     {
