@@ -42,9 +42,9 @@ public class GameOverWindow : MonoBehaviour
 
     private void Bird_OnDied(object sender, System.EventArgs e)
     {
-        scoreText.SetText(Level.GetInstance().GetPipePassed().ToString());
+        scoreText.SetText(Pipe.PIPES_PASSED_COUNT.ToString());
 
-        if(Level.GetInstance().GetPipePassed() >= ScoreManager.GetHighestScore() && Level.GetInstance().GetPipePassed() != 0)
+        if(Pipe.PIPES_PASSED_COUNT >= ScoreManager.GetHighestScore() && Pipe.PIPES_PASSED_COUNT != 0)
         {
             yourScoreText.SetText("New Highest Score!");
         }

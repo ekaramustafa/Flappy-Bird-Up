@@ -13,6 +13,8 @@ public class GameHandler : MonoBehaviour
         BirdDead
     }
 
+    public static float BIRD_X_POSITION = 0f;
+
     public static State state;
     public static float _objectsMovingSpeed = 30f;
     [SerializeField]
@@ -32,6 +34,7 @@ public class GameHandler : MonoBehaviour
     {
         state = State.WaitingToStart;
         _objectsMovingSpeed = 30f;
+        Pipe.PIPES_PASSED_COUNT = 0;
     }
 
     private void Start()

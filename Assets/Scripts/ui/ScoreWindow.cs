@@ -22,7 +22,7 @@ public class ScoreWindow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.SetText(Level.GetInstance().GetPipePassed().ToString());
+        scoreText.SetText(Pipe.PIPES_PASSED_COUNT.ToString());
         coinText.SetText(CoinManager.GetCoin().ToString());
     }
 }
