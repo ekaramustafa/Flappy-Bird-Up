@@ -8,18 +8,18 @@ public class Pipe : MonoBehaviour
 
     public static int PIPES_PASSED_COUNT = 0;
 
-    private const float PIPE_VERTICAL_MOVEMENT_SPEED = 20f;
+    private float verticalSpeed = 20f;
     private const float PIPE_DESTROY_X_POSITION = -100f;
 
     private Transform pipeHeadTransform;
     private bool isBottom;
-    private float movingRange = 10f;
+    private float movingRange;
     private Vector3 initialHeadPosition;
     private float direction = -1f;
 
-
     private bool isPipeCounted;
 
+    private PipeSO pipeSO;
 
     private void Awake()
     {
@@ -62,15 +62,16 @@ public class Pipe : MonoBehaviour
 
     private void VerticalMove()
     {
+        if (movingRange == 0) return; //The pipe should not move vertically
 
         if (Math.Abs(initialHeadPosition.y - pipeHeadTransform.transform.position.y) >= movingRange)
         {
             direction *= -1;
-            pipeHeadTransform.position += new Vector3(0, direction, 0) * PIPE_VERTICAL_MOVEMENT_SPEED * Time.deltaTime;
-            transform.position += new Vector3(0, direction, 0) * PIPE_VERTICAL_MOVEMENT_SPEED * Time.deltaTime;
+            pipeHeadTransform.position += new Vector3(0, direction, 0) * verticalSpeed * Time.deltaTime;
+            transform.position += new Vector3(0, direction, 0) * verticalSpeed * Time.deltaTime;
         }
-        pipeHeadTransform.position += new Vector3(0, direction, 0) * PIPE_VERTICAL_MOVEMENT_SPEED * Time.deltaTime;
-        transform.position += new Vector3(0, direction, 0) * PIPE_VERTICAL_MOVEMENT_SPEED * Time.deltaTime;
+        pipeHeadTransform.position += new Vector3(0, direction, 0) * verticalSpeed * Time.deltaTime;
+        transform.position += new Vector3(0, direction, 0) * verticalSpeed * Time.deltaTime;
 
     }
 
@@ -102,5 +103,14 @@ public class Pipe : MonoBehaviour
         pipeHeadTransform = transform;
         initialHeadPosition = pipeHeadTransform.position;
     } 
+
+    public void SetPipeSO(PipeSO pipeSO)
+    {
+        this.pipeSO = pipeSO;
+
+        //unpack the SO
+        this.movingRange = pipeSO.movingRange;
+        this.verticalSpeed = pipeSO.verticalSpeed;
+    }
 
 }

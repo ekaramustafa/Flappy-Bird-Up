@@ -239,6 +239,9 @@ public class Level : MonoBehaviour
         }
 
         pipeHead.position = new Vector3(xPosition, pipeHeadYPosition);
+        PipeSO pipeSO = GameAssets.GetInstance().GetRandomPipeSO();
+        //The order matters
+        pipeBody.GetComponent<Pipe>().SetPipeSO(pipeSO);
         pipeBody.GetComponent<Pipe>().SetHeadTransform(pipeHead);
         pipeBody.GetComponent<Pipe>().setIsBottom(isBottom);
 
