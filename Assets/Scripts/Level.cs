@@ -10,7 +10,6 @@ public class Level : MonoBehaviour
 
     /* TO-DOs
     Refactor the input system
-    Refactor the state system to have one game state
     */
     private static Level instance;
 
@@ -44,8 +43,6 @@ public class Level : MonoBehaviour
 
 
 
-    private State state;
-
     public enum Difficutly
     {
         Easy,
@@ -53,13 +50,7 @@ public class Level : MonoBehaviour
         Hard,
         Impossible
     }
-
-    private enum State
-    {
-        WaitingToStart,
-        Playing,
-        BirdDead
-    }
+ 
 
     private void Awake()
     {
@@ -68,7 +59,7 @@ public class Level : MonoBehaviour
         pipesSpawned = 0;
         pipesPassedCount = 0;
         instance = this;
-        state = State.WaitingToStart;
+        GameHandler.state = GameHandler.State.WaitingToStart;
         
         abilitiesSpawnTimer = abilitiesSpawnTimerMax;
 
@@ -78,19 +69,12 @@ public class Level : MonoBehaviour
     private void Start()
     {
         bird.OnDied += Bird_OnDied;
-        bird.OnStartedPlaying += Bird_OnstartedPlaying;
      
-    }
-
-    private void Bird_OnstartedPlaying(object sender, EventArgs e)
-    {
-        state = State.Playing;
     }
 
     private void Bird_OnDied(object sender, EventArgs e)
     {
         ScoreManager.SaveHighestScore(pipesPassedCount);
-        state = State.BirdDead;
     }
 
     public static Level GetInstance()
@@ -99,7 +83,7 @@ public class Level : MonoBehaviour
     }
     private void Update()
     {
-        if(state == State.Playing)
+        if (GameHandler.state == GameHandler.State.Playing)
         {
             HandlePipeMovement();
             HandlePipeSwapning();
