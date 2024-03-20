@@ -1473,7 +1473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &856314571
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2940,6 +2940,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1759166959}
+  - component: {fileID: 1759166960}
   m_Layer: 0
   m_Name: CosmeticsWindow
   m_TagString: Untagged
@@ -2971,6 +2972,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1280, y: -720}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1759166960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759166958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5aa38fe5042a4409a3aa7c3e483d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  readyButton: {fileID: 216178714}
+  leftButton: {fileID: 1356062901}
+  rightButton: {fileID: 1236344810}
 --- !u!1 &1837996160
 GameObject:
   m_ObjectHideFlags: 0

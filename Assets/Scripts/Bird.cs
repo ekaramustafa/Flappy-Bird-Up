@@ -29,7 +29,7 @@ public class Bird : MonoBehaviour
         rigidbody2D.bodyType = RigidbodyType2D.Static;
 
         //decompose the BirdSO
-        GetComponent<SpriteRenderer>().sprite = birdSO.spriteRenderer;
+        GetComponent<SpriteRenderer>().sprite = birdSO.sprite;
         GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
         GetComponent<CircleCollider2D>().radius = birdSO.radius;
         rigidbody2D.mass = birdSO.mass;
