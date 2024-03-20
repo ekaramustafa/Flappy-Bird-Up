@@ -59,13 +59,15 @@ public class GameAssets : MonoBehaviour
 
     public Transform GetRandomCoin()
     {
-        int index = GetCustomizedRandomIndex(0.4f, coins.Count);
+        float initialWeight = 0.4f;
+        int index = GetCustomizedRandomIndex(initialWeight, coins.Count);
         return coins[index];
     }
 
     public PipeSO GetRandomPipeSO()
     {
-        int index = GetCustomizedRandomIndex(0.4f, pipeSOs.Count);
+        float initialWeight = 0.3f;
+        int index = GetCustomizedRandomIndex(initialWeight, pipeSOs.Count);
         return pipeSOs[index];
     }
 

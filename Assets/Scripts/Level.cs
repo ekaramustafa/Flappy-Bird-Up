@@ -197,12 +197,13 @@ public class Level : MonoBehaviour
 
     private void CreateGapPipes(float gapY, float gapSize, float xPosition)
     {
-        CreatePipe(gapY - gapSize * 0.5f, xPosition, true);
-        CreatePipe(CAMERA_ORTHO_SIZE * 2f - gapY - gapSize * 0.5f, xPosition, false);
+        PipeSO pipeSO = GameAssets.GetInstance().GetRandomPipeSO();
+        CreatePipe(gapY - gapSize * 0.5f, xPosition, true, pipeSO);
+        CreatePipe(CAMERA_ORTHO_SIZE * 2f - gapY - gapSize * 0.5f, xPosition, false, pipeSO);
 
     }
 
-    private void CreatePipe(float height, float xPosition, bool isBottom)
+    private void CreatePipe(float height, float xPosition, bool isBottom,PipeSO pipeSO)
     {
 
         //setup for pipe body
@@ -217,13 +218,20 @@ public class Level : MonoBehaviour
             pipeBodyYPosition = +CAMERA_ORTHO_SIZE;
             pipeBody.localScale = new Vector3(1, -1, 1);
         }
-        pipeBody.position = new Vector3(xPosition, pipeBodyYPosition);
+        if (isBottom)
+        {
+            pipeBody.position = new Vector3(xPosition, pipeBodyYPosition - pipeSO.movingRange);
+        }
+        else
+        {
+            pipeBody.position = new Vector3(xPosition, pipeBodyYPosition + pipeSO.movingRange);
+        }
 
         SpriteRenderer pipeBodySpriteRendered = pipeBody.GetComponent<SpriteRenderer>();
-        pipeBodySpriteRendered.size = new Vector2(PIPE_BODY_WIDTH, height);
+        pipeBodySpriteRendered.size = new Vector2(PIPE_BODY_WIDTH, height + pipeSO.movingRange);
 
         BoxCollider2D pipeBodyBoxCollider = pipeBody.GetComponent<BoxCollider2D>();
-        pipeBodyBoxCollider.size = new Vector2(PIPE_BODY_WIDTH, height);
+        pipeBodyBoxCollider.size = new Vector2(PIPE_BODY_WIDTH, height + pipeSO.movingRange);
         pipeBodyBoxCollider.offset = new Vector2(0f, height * 0.5f);
 
         //setup for pipe head
@@ -239,7 +247,6 @@ public class Level : MonoBehaviour
         }
 
         pipeHead.position = new Vector3(xPosition, pipeHeadYPosition);
-        PipeSO pipeSO = GameAssets.GetInstance().GetRandomPipeSO();
         //The order matters
         pipeBody.GetComponent<Pipe>().SetPipeSO(pipeSO);
         pipeBody.GetComponent<Pipe>().SetHeadTransform(pipeHead);
