@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bird : MonoBehaviour
 {
     private Rigidbody2D rigidbody2D;
-    private State state;
 
     public event EventHandler OnDied;
     public event EventHandler OnStartedPlaying;
@@ -28,7 +27,8 @@ public class Bird : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         rigidbody2D.bodyType = RigidbodyType2D.Static;
-        state = State.WaitingToStart;
+        GameHandler.state = GameHandler.State.WaitingToStart;
+        //state = State.WaitingToStart;
 
         //decompose the BirdSO
         GetComponent<SpriteRenderer>().sprite = birdSO.spriteRenderer;
@@ -44,24 +44,25 @@ public class Bird : MonoBehaviour
 
     private void Update()
     {
-        switch (state)
+
+        switch (GameHandler.state)
         {
-            case State.WaitingToStart:
+            case GameHandler.State.WaitingToStart:
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
                     OnStartedPlaying?.Invoke(this, EventArgs.Empty);
-                    state = State.Playing;
+                    GameHandler.state = GameHandler.State.Playing;
                     rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
                     Jump();
                 }
                 break;
-            case State.Playing:
+            case GameHandler.State.Playing:
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
                     Jump();
                 }
                 break;
-            case State.Dead:
+            case GameHandler.State.BirdDead:
                 rigidbody2D.bodyType = RigidbodyType2D.Static;
                 break;
         }
@@ -85,7 +86,7 @@ public class Bird : MonoBehaviour
         else
         {
             OnDied?.Invoke(this, EventArgs.Empty);
-            state = State.Dead;
+            GameHandler.state = GameHandler.State.BirdDead;
             SoundManager.PlaySound(SoundManager.Sound.Death);
         }
 

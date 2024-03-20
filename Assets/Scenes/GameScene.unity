@@ -705,7 +705,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -951,6 +951,12 @@ MonoBehaviour:
   coins:
   - {fileID: 649317109264314360, guid: 3cc64ded6c1962b46b66bc8c5a46172b, type: 3}
   - {fileID: 649317109264314360, guid: 448fa2d47cca32541b892fe4d79041eb, type: 3}
+  pipeSOs:
+  - {fileID: 11400000, guid: 7005b0cf74c50804281ffb5f6972804c, type: 2}
+  - {fileID: 11400000, guid: 5fd66a6fc90ff6542aaeb4a761343f81, type: 2}
+  - {fileID: 11400000, guid: 17e2207d351505f469f0c9e01d3bc1fe, type: 2}
+  - {fileID: 11400000, guid: d5467383f58768141b1ad04fb9fbe8c4, type: 2}
+  - {fileID: 11400000, guid: de37ee60007ab924b9d84dd1b01c135a, type: 2}
   audioClips:
   - sound: 0
     audioClip: {fileID: 8300000, guid: ed16b60e680743d47a13fb8f93b21dc4, type: 3}

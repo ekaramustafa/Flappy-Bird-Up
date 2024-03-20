@@ -10,7 +10,6 @@ public class Level : MonoBehaviour
 
     /* TO-DOs
     Refactor the input system
-    Refactor the state system to have one game state
     */
     private static Level instance;
 
@@ -20,14 +19,10 @@ public class Level : MonoBehaviour
     private const float PIPE_HEAD_HEIGHT = 3.75f;
     private const float PIPE_DESTROY_X_POSITION = -100f;
     private const float PIPE_SPAWN_X_POSITION = 100f;
-    private const float BIRD_X_POSITION = 0f;
 
 
     [SerializeField]
     private Bird bird;
-
-    private List<Pipe> pipeList;
-    private int pipesPassedCount;
 
     private float pipeSpawnTimer;
     [SerializeField] private float pipeSpawnTimerMax = 1f;
@@ -44,8 +39,6 @@ public class Level : MonoBehaviour
 
 
 
-    private State state;
-
     public enum Difficutly
     {
         Easy,
@@ -54,43 +47,27 @@ public class Level : MonoBehaviour
         Impossible
     }
 
-    private enum State
-    {
-        WaitingToStart,
-        Playing,
-        BirdDead
-    }
 
     private void Awake()
     {
-        pipeList = new List<Pipe>();
         SetDifficulty(Difficutly.Easy); //set the gapSize
         pipesSpawned = 0;
-        pipesPassedCount = 0;
         instance = this;
-        state = State.WaitingToStart;
-        
-        abilitiesSpawnTimer = abilitiesSpawnTimerMax;
+        GameHandler.state = GameHandler.State.WaitingToStart;
 
+        abilitiesSpawnTimer = abilitiesSpawnTimerMax;
         coinSpawnTimer = coinSpawnTimerMax;
 
     }
     private void Start()
     {
         bird.OnDied += Bird_OnDied;
-        bird.OnStartedPlaying += Bird_OnstartedPlaying;
-     
-    }
 
-    private void Bird_OnstartedPlaying(object sender, EventArgs e)
-    {
-        state = State.Playing;
     }
 
     private void Bird_OnDied(object sender, EventArgs e)
     {
-        ScoreManager.SaveHighestScore(pipesPassedCount);
-        state = State.BirdDead;
+        ScoreManager.SaveHighestScore(Pipe.PIPES_PASSED_COUNT);
     }
 
     public static Level GetInstance()
@@ -99,9 +76,8 @@ public class Level : MonoBehaviour
     }
     private void Update()
     {
-        if(state == State.Playing)
+        if (GameHandler.state == GameHandler.State.Playing)
         {
-            HandlePipeMovement();
             HandlePipeSwapning();
             HandleAbilitySpawning();
             HandleCoinSpawning();
@@ -112,7 +88,7 @@ public class Level : MonoBehaviour
     private void HandleCoinSpawning()
     {
         coinSpawnTimer -= Time.deltaTime;
-        if(coinSpawnTimer < 0)
+        if (coinSpawnTimer < 0)
         {
             coinSpawnTimer += coinSpawnTimerMax;
             float heightEdgeLimit = 10f;
@@ -149,7 +125,7 @@ public class Level : MonoBehaviour
             float minX = 50;
             float maxX = 100;
             float xPosition = UnityEngine.Random.Range(minX, maxX);
-            CreateAbility(height,xPosition);
+            CreateAbility(height, xPosition);
         }
     }
 
@@ -158,7 +134,7 @@ public class Level : MonoBehaviour
         if (IsCollidingAnything(yPosition, xPosition)) return;
 
         Transform abilityTransform = Instantiate(GameAssets.GetInstance().GetRandomAbility());
-        abilityTransform.position = new Vector3(xPosition,yPosition);
+        abilityTransform.position = new Vector3(xPosition, yPosition);
         Ability ability = abilityTransform.GetComponent<Ability>();
 
     }
@@ -178,40 +154,17 @@ public class Level : MonoBehaviour
     private void HandlePipeSwapning()
     {
         pipeSpawnTimer -= Time.deltaTime;
-        if(pipeSpawnTimer < 0)
+        if (pipeSpawnTimer < 0)
         {
             pipeSpawnTimer += pipeSpawnTimerMax;
-            
+
             float heightEdgeLimit = 10f;
             float minHeight = gapSize * 0.5f + heightEdgeLimit;
-            float maxHeight = CAMERA_ORTHO_SIZE * 2f - gapSize*0.5f - heightEdgeLimit;
+            float maxHeight = CAMERA_ORTHO_SIZE * 2f - gapSize * 0.5f - heightEdgeLimit;
             float height = UnityEngine.Random.Range(minHeight, maxHeight);
             CreateGapPipes(height, gapSize, PIPE_SPAWN_X_POSITION);
             pipesSpawned++;
             SetDifficulty(GetDifficutly());
-        }
-    }
-
-    private void HandlePipeMovement()
-    {
-        //In java this would blow the code
-        for(int i = 0; i < pipeList.Count; i++)
-        {
-            Pipe pipe = pipeList[i];
-            bool isToTheRightOfBird = pipe.GetXPosition() > BIRD_X_POSITION;
-            pipe.Move();
-            if(isToTheRightOfBird && pipe.GetXPosition() <= BIRD_X_POSITION && pipe.IsBottom())
-            {
-                //Pipe passed Bird
-                pipesPassedCount++;
-            }
-            //The pipe is out of the window
-            if(pipe.GetXPosition() < PIPE_DESTROY_X_POSITION)
-            {
-                pipe.DestorySelf();
-                pipeList.Remove(pipe);
-                i--;
-            }
         }
     }
 
@@ -244,13 +197,42 @@ public class Level : MonoBehaviour
 
     private void CreateGapPipes(float gapY, float gapSize, float xPosition)
     {
-        CreatePipe(gapY - gapSize * 0.5f, xPosition, true);
-        CreatePipe(CAMERA_ORTHO_SIZE * 2f - gapY - gapSize * 0.5f, xPosition, false);
+        PipeSO pipeSO = GameAssets.GetInstance().GetRandomPipeSO();
+        CreatePipe(gapY - gapSize * 0.5f, xPosition, true, pipeSO);
+        CreatePipe(CAMERA_ORTHO_SIZE * 2f - gapY - gapSize * 0.5f, xPosition, false, pipeSO);
 
     }
 
-    private void CreatePipe(float height, float xPosition, bool isBottom)
+    private void CreatePipe(float height, float xPosition, bool isBottom,PipeSO pipeSO)
     {
+
+        //setup for pipe body
+        Transform pipeBody = Instantiate(GameAssets.GetInstance().pfPipeBody);
+        float pipeBodyYPosition;
+        if (isBottom)
+        {
+            pipeBodyYPosition = -CAMERA_ORTHO_SIZE;
+        }
+        else
+        {
+            pipeBodyYPosition = +CAMERA_ORTHO_SIZE;
+            pipeBody.localScale = new Vector3(1, -1, 1);
+        }
+        if (isBottom)
+        {
+            pipeBody.position = new Vector3(xPosition, pipeBodyYPosition - pipeSO.movingRange);
+        }
+        else
+        {
+            pipeBody.position = new Vector3(xPosition, pipeBodyYPosition + pipeSO.movingRange);
+        }
+
+        SpriteRenderer pipeBodySpriteRendered = pipeBody.GetComponent<SpriteRenderer>();
+        pipeBodySpriteRendered.size = new Vector2(PIPE_BODY_WIDTH, height + pipeSO.movingRange);
+
+        BoxCollider2D pipeBodyBoxCollider = pipeBody.GetComponent<BoxCollider2D>();
+        pipeBodyBoxCollider.size = new Vector2(PIPE_BODY_WIDTH, height + pipeSO.movingRange);
+        pipeBodyBoxCollider.offset = new Vector2(0f, height * 0.5f);
 
         //setup for pipe head
         Transform pipeHead = Instantiate(GameAssets.GetInstance().pfPipeHead);
@@ -265,39 +247,15 @@ public class Level : MonoBehaviour
         }
 
         pipeHead.position = new Vector3(xPosition, pipeHeadYPosition);
+        //The order matters
+        pipeBody.GetComponent<Pipe>().SetPipeSO(pipeSO);
+        pipeBody.GetComponent<Pipe>().SetHeadTransform(pipeHead);
+        pipeBody.GetComponent<Pipe>().setIsBottom(isBottom);
 
-        //setup for pipe body
-        Transform pipeBody = Instantiate(GameAssets.GetInstance().pfPipeBody);
-        float pipeBodyYPosition;
-        if (isBottom)
-        {
-            pipeBodyYPosition = -CAMERA_ORTHO_SIZE;
-        }
-        else
-        {
-            pipeBodyYPosition = +CAMERA_ORTHO_SIZE;
-            pipeBody.localScale = new Vector3(1, -1, 1);
-        }
-        pipeBody.position = new Vector3(xPosition, pipeBodyYPosition);
-
-        SpriteRenderer pipeBodySpriteRendered = pipeBody.GetComponent<SpriteRenderer>();
-        pipeBodySpriteRendered.size = new Vector2(PIPE_BODY_WIDTH, height);
-
-        BoxCollider2D pipeBodyBoxCollider = pipeBody.GetComponent<BoxCollider2D>();
-        pipeBodyBoxCollider.size = new Vector2(PIPE_BODY_WIDTH, height);
-        pipeBodyBoxCollider.offset = new Vector2(0f, height * 0.5f);
-
-        Pipe pipe = new Pipe(pipeHead, pipeBody,isBottom);
-        pipeList.Add(pipe);
+        Pipe pipe = pipeBody.GetComponent<Pipe>();
 
     }
 
-    public int GetPipePassed()
-    {
-        return pipesPassedCount;
-    }
-
- 
     //make the spawning faster/slower
     public void ScaleSpawnerTimers(float scale)
     {
@@ -305,48 +263,5 @@ public class Level : MonoBehaviour
         pipeSpawnTimerMax = pipeSpawnTimerMax / scale;
         Debug.Log("The value of pipeSpawnTimerMax : " + pipeSpawnTimerMax);
     }
-
-    
-
-    /*
-     * Represents a single Pipe
-     */
-    private class Pipe{
-
-        private Transform pipeHeadTransform;
-        private Transform pipeBodyTransform;
-        private bool createBottom;
- 
-
-        public Pipe(Transform pipeHeadTransform, Transform pipeBodyTransform, bool isBottom)
-        {
-            this.pipeHeadTransform = pipeHeadTransform;
-            this.pipeBodyTransform = pipeBodyTransform;
-            this.createBottom = isBottom;
-        }
-
-
-        public void Move()
-        {
-            pipeHeadTransform.position += new Vector3(-1, 0, 0) * GameHandler.OBJECTS_MOVING_SPEED * Time.deltaTime;
-            pipeBodyTransform.position += new Vector3(-1, 0, 0) * GameHandler.OBJECTS_MOVING_SPEED * Time.deltaTime;
-
-        }
-
-        public float GetXPosition()
-        {
-            return pipeHeadTransform.transform.position.x;
-        }
-
-        public void DestorySelf()
-        {
-            Destroy(pipeHeadTransform.gameObject);
-            Destroy(pipeBodyTransform.gameObject);
-        }
-
-        public bool IsBottom()
-        {
-            return createBottom;
-        }
-    }
 }
+

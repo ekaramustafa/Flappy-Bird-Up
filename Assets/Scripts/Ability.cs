@@ -46,7 +46,10 @@ public abstract class Ability: MonoBehaviour, IInteractable
 
     private void Update()
     {
-        Move();
+        if (GameHandler.state == GameHandler.State.Playing)
+        {
+            Move();
+        }
     }
 
 
