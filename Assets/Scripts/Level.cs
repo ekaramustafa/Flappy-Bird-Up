@@ -231,7 +231,7 @@ public class Level : MonoBehaviour
 
         BoxCollider2D pipeBodyBoxCollider = pipeBody.GetComponent<BoxCollider2D>();
         pipeBodyBoxCollider.size = new Vector2(PIPE_BODY_WIDTH, height + pipeSO.movingRange);
-        pipeBodyBoxCollider.offset = new Vector2(0f, height * 0.5f);
+        pipeBodyBoxCollider.offset = new Vector2(0f, height * 0.5f + pipeSO.movingRange * 0.5f);
 
         //setup for pipe head
         Transform pipeHead = Instantiate(GameAssets.GetInstance().pfPipeHead);

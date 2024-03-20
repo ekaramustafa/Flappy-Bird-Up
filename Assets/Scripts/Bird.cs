@@ -66,12 +66,21 @@ public class Bird : MonoBehaviour
         GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
         GetComponent<CircleCollider2D>().radius = birdSO.radius;
         rigidbody2D.mass = birdSO.mass;
+        
+    }
+
+    private void DecomposeSO(BirdSO birdSO)
+    {
+        GetComponent<SpriteRenderer>().sprite = birdSO.sprite;
+        GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
+        GetComponent<CircleCollider2D>().radius = birdSO.radius;
+        rigidbody2D.mass = birdSO.mass;
+
     }
 
     public void SetBirdSO(BirdSO birdSO)
     {
-        this.birdSO = birdSO;
-        DecomposeSO();
+        DecomposeSO(birdSO);
     }
 
     private void Jump()

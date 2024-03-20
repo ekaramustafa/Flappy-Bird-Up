@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BirdSelectingDatabaseSO
   m_EditorClassIdentifier: 
   birds:
-  - {fileID: 11400000, guid: b5e400f9d992fbe4cba8cc752eecc466, type: 2}
   - {fileID: 11400000, guid: 398d7f08205b5f5419f52a5ef5b1e460, type: 2}
+  - {fileID: 11400000, guid: b5e400f9d992fbe4cba8cc752eecc466, type: 2}

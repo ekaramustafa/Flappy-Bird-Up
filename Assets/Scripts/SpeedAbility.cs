@@ -21,7 +21,9 @@ public class SpeedAbility : Ability
 
     public override IEnumerator ResetAbilityEffectAfterDelay(float delay)
     {
-        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<
+            
+            Renderer>().enabled = false;
         yield return new WaitForSeconds(delay);
         GameHandler.OBJECTS_MOVING_SPEED = originalSpeed;
         Destroy(this.gameObject);

@@ -4,10 +4,6 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "BirdSO", menuName = "ScriptableObjects/Bird", order = 1)]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CircleCollider2D))]
 public class BirdSO : ScriptableObject
 {
 

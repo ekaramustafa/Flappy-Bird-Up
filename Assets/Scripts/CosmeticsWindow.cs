@@ -13,11 +13,10 @@ public class CosmeticsWindow : MonoBehaviour
     [SerializeField] private BirdDatabaseSO birdDatabase;
     [SerializeField] private Bird bird;
     // Start is called before the first frame update
-    private int selectedOption;
+    private int selectedOption = 0;
 
     private void Awake()
     {
-        selectedOption = 0;
         readyButton.GetComponent<Button_UI>().ClickFunc = () => {
             Hide();
             GameHandler.state = GameHandler.State.WaitingToStart;
@@ -32,6 +31,8 @@ public class CosmeticsWindow : MonoBehaviour
         {
             NextOption();
         };
+
+        UpdateBird();
 
     }
 
@@ -48,7 +49,7 @@ public class CosmeticsWindow : MonoBehaviour
             selectedOption = 0;
         }
 
-        UpdateBird(selectedOption);
+        UpdateBird();
     }
 
     public void BackOption()
@@ -59,10 +60,10 @@ public class CosmeticsWindow : MonoBehaviour
             selectedOption = birdDatabase.BirdCount - 1;
         }
 
-        UpdateBird(selectedOption);
+        UpdateBird();
     }
 
-    private void UpdateBird(int selectedOption)
+    private void UpdateBird()
     {
         BirdSO birdSO = birdDatabase.GetBird(selectedOption);
         bird.SetBirdSO(birdSO);
