@@ -21,6 +21,8 @@ public class Level : MonoBehaviour
     private const float PIPE_SPAWN_X_POSITION = 100f;
     private const float BIRD_X_POSITION = 0f;
 
+    private const float PIPE_VERTICAL_MOVEMENT_SPEED = 20f;
+
 
     [SerializeField]
     private Bird bird;
@@ -192,7 +194,7 @@ public class Level : MonoBehaviour
             //The pipe is out of the window
             if(pipe.GetXPosition() < PIPE_DESTROY_X_POSITION)
             {
-                pipe.DestorySelf();
+                pipe.DestroySelf();
                 pipeList.Remove(pipe);
                 i--;
             }
@@ -295,26 +297,50 @@ public class Level : MonoBehaviour
     /*
      * Represents a single Pipe
      */
+    
     private class Pipe{
 
         private Transform pipeHeadTransform;
         private Transform pipeBodyTransform;
+        
+        
         private bool createBottom;
- 
+        private float movingRange = 10f;
+        private Vector3 initialHeadPosition;
+        private float direction = -1f;
 
         public Pipe(Transform pipeHeadTransform, Transform pipeBodyTransform, bool isBottom)
         {
             this.pipeHeadTransform = pipeHeadTransform;
             this.pipeBodyTransform = pipeBodyTransform;
             this.createBottom = isBottom;
+            initialHeadPosition = pipeHeadTransform.position;
         }
 
 
         public void Move()
         {
+            VerticalMove();
+            HorizantalMove();
+
+        }
+
+        private void HorizantalMove()
+        {
             pipeHeadTransform.position += new Vector3(-1, 0, 0) * GameHandler.OBJECTS_MOVING_SPEED * Time.deltaTime;
             pipeBodyTransform.position += new Vector3(-1, 0, 0) * GameHandler.OBJECTS_MOVING_SPEED * Time.deltaTime;
+        }
 
+        private void VerticalMove()
+        {
+            
+            if(Math.Abs(initialHeadPosition.y - pipeHeadTransform.transform.position.y) >= movingRange)
+            {
+                direction *= -1;
+            }
+            pipeHeadTransform.position += new Vector3(0, direction, 0) * PIPE_VERTICAL_MOVEMENT_SPEED * Time.deltaTime;
+            pipeBodyTransform.position += new Vector3(0, direction, 0) * PIPE_VERTICAL_MOVEMENT_SPEED * Time.deltaTime;
+            
         }
 
         public float GetXPosition()
@@ -322,7 +348,7 @@ public class Level : MonoBehaviour
             return pipeHeadTransform.transform.position.x;
         }
 
-        public void DestorySelf()
+        public void DestroySelf()
         {
             Destroy(pipeHeadTransform.gameObject);
             Destroy(pipeBodyTransform.gameObject);
@@ -333,4 +359,5 @@ public class Level : MonoBehaviour
             return createBottom;
         }
     }
+    
 }
