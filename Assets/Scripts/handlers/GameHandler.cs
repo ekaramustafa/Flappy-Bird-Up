@@ -6,7 +6,14 @@ using CodeMonkey.Utils;
 
 public class GameHandler : MonoBehaviour
 {
+    public enum State
+    {
+        WaitingToStart,
+        Playing,
+        BirdDead
+    }
 
+    public static State state;
     public static float _objectsMovingSpeed = 30f;
     [SerializeField]
     public static float OBJECTS_MOVING_SPEED { get
@@ -23,6 +30,7 @@ public class GameHandler : MonoBehaviour
 
     private void Awake()
     {
+        state = State.WaitingToStart;
         _objectsMovingSpeed = 30f;
     }
 
