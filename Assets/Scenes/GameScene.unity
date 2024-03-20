@@ -2987,6 +2987,8 @@ MonoBehaviour:
   readyButton: {fileID: 216178714}
   leftButton: {fileID: 1356062901}
   rightButton: {fileID: 1236344810}
+  birdDatabase: {fileID: 11400000, guid: 556dccaa1bed3c94b99fe89c364df08d, type: 2}
+  bird: {fileID: 1991399916}
 --- !u!1 &1837996160
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,7 +3181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSpeed: 80
-  birdSO: {fileID: 11400000, guid: b5e400f9d992fbe4cba8cc752eecc466, type: 2}
+  birdSO: {fileID: 11400000, guid: 398d7f08205b5f5419f52a5ef5b1e460, type: 2}
 --- !u!114 &1991399917
 MonoBehaviour:
   m_ObjectHideFlags: 0

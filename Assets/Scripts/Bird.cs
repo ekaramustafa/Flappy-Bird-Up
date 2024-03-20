@@ -16,24 +16,16 @@ public class Bird : MonoBehaviour
     [SerializeField]
     private BirdSO birdSO;
 
-    private enum State
-    {
-        WaitingToStart,
-        Playing,
-        Dead
-    }
-
     private void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         rigidbody2D.bodyType = RigidbodyType2D.Static;
 
         //decompose the BirdSO
-        GetComponent<SpriteRenderer>().sprite = birdSO.sprite;
-        GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
-        GetComponent<CircleCollider2D>().radius = birdSO.radius;
-        rigidbody2D.mass = birdSO.mass;
+        DecomposeSO();
     }
+
+
 
     private void Start()
     {
@@ -66,6 +58,20 @@ public class Bird : MonoBehaviour
                 rigidbody2D.bodyType = RigidbodyType2D.Static;
                 break;
         }
+    }
+
+    private void DecomposeSO()
+    {
+        GetComponent<SpriteRenderer>().sprite = birdSO.sprite;
+        GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
+        GetComponent<CircleCollider2D>().radius = birdSO.radius;
+        rigidbody2D.mass = birdSO.mass;
+    }
+
+    public void SetBirdSO(BirdSO birdSO)
+    {
+        this.birdSO = birdSO;
+        DecomposeSO();
     }
 
     private void Jump()

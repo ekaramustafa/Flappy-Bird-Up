@@ -5,7 +5,6 @@ using UnityEngine;
 public class BirdDatabaseSO : ScriptableObject
 {
     public BirdSO[] birds;
-
     public int BirdCount
     {
         get
