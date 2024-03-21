@@ -1,5 +1,6 @@
 using CodeMonkey;
 using System;
+using UnityEditor;
 using UnityEngine;
 
 public class Bird : MonoBehaviour
@@ -15,6 +16,9 @@ public class Bird : MonoBehaviour
 
     [SerializeField]
     private BirdSO birdSO;
+
+
+    private Sprite sprite;
 
     private void Awake()
     {
@@ -60,16 +64,15 @@ public class Bird : MonoBehaviour
         }
     }
 
-    private void DecomposeSO()
+    
+    private void LateUpdate()
     {
-        GetComponent<SpriteRenderer>().sprite = birdSO.sprite;
-        GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
-        GetComponent<CircleCollider2D>().radius = birdSO.radius;
-        rigidbody2D.mass = birdSO.mass;
-        
+        if(GameHandler.state != GameHandler.State.Playing)
+            GetComponent<SpriteRenderer>().sprite = birdSO.sprite;
     }
+    
 
-    private void DecomposeSO(BirdSO birdSO)
+    public void DecomposeSO()
     {
         GetComponent<SpriteRenderer>().sprite = birdSO.sprite;
         GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
@@ -80,7 +83,8 @@ public class Bird : MonoBehaviour
 
     public void SetBirdSO(BirdSO birdSO)
     {
-        DecomposeSO(birdSO);
+        this.birdSO = birdSO;
+        DecomposeSO();
     }
 
     private void Jump()
