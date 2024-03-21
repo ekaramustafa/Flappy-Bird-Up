@@ -70,7 +70,6 @@ public class Bird : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = birdSO.radius;
         gameObject.transform.localScale = new Vector3(birdSO.size, birdSO.size, 1);
         rigidbody2D.mass = birdSO.mass;
-
     }
 
     public void SetBirdSO(BirdSO birdSO)
