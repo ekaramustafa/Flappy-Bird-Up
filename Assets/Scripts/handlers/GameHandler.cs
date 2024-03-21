@@ -8,6 +8,7 @@ public class GameHandler : MonoBehaviour
 {
     public enum State
     {
+        CosmeticSelection,
         WaitingToStart,
         Playing,
         BirdDead
@@ -32,7 +33,7 @@ public class GameHandler : MonoBehaviour
 
     private void Awake()
     {
-        state = State.WaitingToStart;
+        state = State.CosmeticSelection;
         _objectsMovingSpeed = 30f;
         Pipe.PIPES_PASSED_COUNT = 0;
     }

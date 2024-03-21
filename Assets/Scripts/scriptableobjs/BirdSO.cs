@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "BirdSO", menuName = "ScriptableObjects/BirdScriptableObject", order = 1)]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CircleCollider2D))]
+[CreateAssetMenu(fileName = "BirdSO", menuName = "ScriptableObjects/Bird", order = 1)]
 public class BirdSO : ScriptableObject
 {
 
-    public Sprite spriteRenderer;
+    public Sprite sprite;
     public RuntimeAnimatorController runtimeAnimatorController;
-    public int radius;//for collider size
+    public float radius;//for collider size
     public int mass;
 
     

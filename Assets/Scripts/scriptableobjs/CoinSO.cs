@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CoinSO", menuName = "ScriptableObjects/CoinScriptableObject", order = 1)]
+[CreateAssetMenu(fileName = "CoinSO", menuName = "ScriptableObjects/Coin", order = 1)]
 public class CoinSO : ScriptableObject
 {
 

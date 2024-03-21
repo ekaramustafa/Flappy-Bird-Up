@@ -9,17 +9,14 @@ public class BirdAnimator : MonoBehaviour
 
     private Animator animator;
 
-
-    private Bird bird;
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        bird = GetComponent<Bird>();
     }
     void Start()
     {
-        bird.OnDied += BirdAnimator_OnDied;
-        bird.OnStartedPlaying += Bird_OnStartedPlaying;
+        GetComponent<Bird>().OnDied += BirdAnimator_OnDied;
+        GetComponent<Bird>().OnStartedPlaying += Bird_OnStartedPlaying;
     }
 
     private void Bird_OnStartedPlaying(object sender, System.EventArgs e)
@@ -33,9 +30,4 @@ public class BirdAnimator : MonoBehaviour
         animator.SetBool(IS_PLAYING,false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
