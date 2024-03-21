@@ -15,4 +15,5 @@ MonoBehaviour:
   sprite: {fileID: 1111546806721587337, guid: 0c6b4087be1c8984989b77955f1cc287, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: 29117399a1621d94eb5242a2d69328c1, type: 2}
   radius: 2
-  mass: 15
+  mass: 20
+  size: 3
