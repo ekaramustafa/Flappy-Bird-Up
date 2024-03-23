@@ -19,7 +19,7 @@ public class CosmeticsWindow : MonoBehaviour
     [Header("Hat")]
     [SerializeField] private Transform hatLeftButton;
     [SerializeField] private Transform hatRightButton;
-    [SerializeField] private Transform hatHolder;
+    [SerializeField] private Transform hatBuyButton;
     // Start is called before the first frame update
     private int birdSelectedOption;
     private int hatSelectedOption;
@@ -66,6 +66,12 @@ public class CosmeticsWindow : MonoBehaviour
             NextOption(ref hatSelectedOption, bird.GetBirdSO().hatDatabase);
         };
 
+        hatBuyButton.GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            BuySelectedHat();
+        };
+        hatBuyButton.gameObject.SetActive(false);
+
         UpdateAll();
 
     }
@@ -83,8 +89,31 @@ public class CosmeticsWindow : MonoBehaviour
 
     private void UpdateHat()
     {
-        bird.GetBirdSO().hatDatabase.UpdateSO(bird, hatSelectedOption);
+        HatDatabaseSO hatDatabase = bird.GetBirdSO().hatDatabase;
+        hatDatabase.UpdateSO(bird, hatSelectedOption);
+        if (!hatDatabase.IsSelectedOptionPurchased())
+        {
+            ShowHatBuy();
+            readyButton.gameObject.SetActive(false);
+        }
     }
+
+    private void ShowHatBuy()
+    {
+        hatBuyButton.gameObject.SetActive(true);
+    }
+
+    private void BuySelectedHat()
+    {
+        HatDatabaseSO hatDatabase = bird.GetBirdSO().hatDatabase;
+        int price = ((CosmeticSO)hatDatabase.GetScriptableObject(hatSelectedOption)).price;
+        if (!CoinManager.DeduceCoin(price)) return;
+        hatDatabase.BuySelectedOption(hatSelectedOption);
+        hatBuyButton.gameObject.SetActive(false);
+        readyButton.gameObject.SetActive(true);
+        UpdateAll();
+    }
+
     private void UpdateBird()
     {
         birdDatabase.UpdateSO(bird, birdSelectedOption);

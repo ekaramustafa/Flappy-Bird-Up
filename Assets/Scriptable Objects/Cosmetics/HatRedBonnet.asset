@@ -16,3 +16,5 @@ MonoBehaviour:
   xPos: 0.14
   yPos: 1.09
   zRotation: -5.973
+  price: 50
+  isPurchased: 0
