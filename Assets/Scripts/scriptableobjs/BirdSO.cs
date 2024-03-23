@@ -12,6 +12,6 @@ public class BirdSO : ScriptableObject
     public float radius;//for collider size
     public int mass;
     public float size;
+    //public CosmeticDatabaseSO hatCosmetics; try to attach each bird to a set of cosmetics
 
-    
 }
