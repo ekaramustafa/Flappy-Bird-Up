@@ -15,4 +15,8 @@ MonoBehaviour:
   sprite: {fileID: -6336752053224900323, guid: 11fa604a619fc47459a93991335e128a, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: f4383a30e34f820489fe87ced2165103, type: 2}
   radius: 1.5
-  mass: 5
+  mass: 2
+  size: 2
+  hatOffsetX: 0.14
+  hatOffsetY: -0.4
+  hatRotationZ: 4.84

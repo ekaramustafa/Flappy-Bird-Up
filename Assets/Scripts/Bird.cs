@@ -10,13 +10,11 @@ public class Bird : MonoBehaviour
     public event EventHandler OnDied;
     public event EventHandler OnStartedPlaying;
 
-    [SerializeField]
-    private float jumpSpeed = 40f;
+    [SerializeField] private float jumpSpeed = 40f;
+    
 
-
-    [SerializeField]
-    private BirdSO birdSO;
-
+    [SerializeField] private BirdSO birdSO;
+    [SerializeField] Transform hatHolderTransform;
 
     private Sprite sprite;
 
@@ -27,13 +25,6 @@ public class Bird : MonoBehaviour
 
         //decompose the BirdSO
         DecomposeSO();
-    }
-
-
-
-    private void Start()
-    {
-        
     }
 
     private void Update()
@@ -77,8 +68,8 @@ public class Bird : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = birdSO.sprite;
         GetComponent<Animator>().runtimeAnimatorController = birdSO.runtimeAnimatorController;
         GetComponent<CircleCollider2D>().radius = birdSO.radius;
+        gameObject.transform.localScale = new Vector3(birdSO.size, birdSO.size, 1);
         rigidbody2D.mass = birdSO.mass;
-
     }
 
     public void SetBirdSO(BirdSO birdSO)
@@ -121,4 +112,9 @@ public class Bird : MonoBehaviour
         return jumpSpeed;
     }
 
+
+    public Transform GetHatHolderTransform()
+    {
+        return hatHolderTransform;
+    }
 }
