@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8ebddb3da3adc42bd9cb35220c9760, type: 3}
   m_Name: BirdBigBlue
   m_EditorClassIdentifier: 
+  name: SiskoMavi
   sprite: {fileID: 1111546806721587337, guid: 0c6b4087be1c8984989b77955f1cc287, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: 29117399a1621d94eb5242a2d69328c1, type: 2}
   radius: 2
   mass: 20
   size: 3
+  hatDatabase: {fileID: 11400000, guid: aff4dca17d334a94296756b0b1f287a8, type: 2}

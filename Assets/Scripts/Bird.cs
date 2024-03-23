@@ -117,4 +117,9 @@ public class Bird : MonoBehaviour
     {
         return hatHolderTransform;
     }
+
+    public BirdSO GetBirdSO()
+    {
+        return birdSO;
+    }
 }

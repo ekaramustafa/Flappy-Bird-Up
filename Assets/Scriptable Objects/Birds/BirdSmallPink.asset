@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8ebddb3da3adc42bd9cb35220c9760, type: 3}
   m_Name: BirdSmallPink
   m_EditorClassIdentifier: 
+  name: KucukPembe
   sprite: {fileID: -6336752053224900323, guid: 11fa604a619fc47459a93991335e128a, type: 3}
   runtimeAnimatorController: {fileID: 9100000, guid: f4383a30e34f820489fe87ced2165103, type: 2}
   radius: 1.5
   mass: 2
   size: 2
-  hatOffsetX: 0.14
-  hatOffsetY: -0.4
-  hatRotationZ: 4.84
+  hatDatabase: {fileID: 11400000, guid: 62466b8e977f13a4aae8afa6749f964b, type: 2}
