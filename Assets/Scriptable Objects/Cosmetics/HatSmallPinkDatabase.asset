@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d006e23fe6fcb4a9e138318431923f, type: 3}
-  m_Name: HatHard
+  m_Script: {fileID: 11500000, guid: 57d54f8f632bdef488f065bfbfb60ca1, type: 3}
+  m_Name: HatSmallPinkDatabase
   m_EditorClassIdentifier: 
-  cosmetic: {fileID: 21300000, guid: fd0e99dd8f61b294bb89fdbe1ce492bd, type: 3}
-  xPos: 0.2
-  yPos: 1.52
-  zRotation: -1.18
+  scriptableObjects:
+  - {fileID: 11400000, guid: 4672290a394c0484d915c287db786be4, type: 2}
+  - {fileID: 11400000, guid: 58ca384545637864b8737b21561ac10f, type: 2}

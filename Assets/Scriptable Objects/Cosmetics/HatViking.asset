@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HatViking
   m_EditorClassIdentifier: 
   cosmetic: {fileID: 21300000, guid: bd42eff5cad303549ad96f8d1034bcfe, type: 3}
-  xoffset: 0.14
-  yoffset: 1.92
+  xPos: 0.14
+  yPos: 1.92
   zRotation: 0

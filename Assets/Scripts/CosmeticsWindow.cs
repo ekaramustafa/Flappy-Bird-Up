@@ -10,12 +10,13 @@ public class CosmeticsWindow : MonoBehaviour
     private const string HAT_SELECTED_OPTION = "HatSelectedOption";
     [SerializeField] private Bird bird;
     [SerializeField] private Transform readyButton;
+    
     [Header("Bird Selecting")]
     [SerializeField] private Transform birdLeftButton;
     [SerializeField] private Transform birdRightButton;
     [SerializeField] private BirdDatabaseSO birdDatabase;
-    [Header("Cosmetics")]
-    [SerializeField] private CosmeticDatabaseSO hatDatabase;
+    
+    [Header("Hat")]
     [SerializeField] private Transform hatLeftButton;
     [SerializeField] private Transform hatRightButton;
     [SerializeField] private Transform hatHolder;
@@ -33,16 +34,7 @@ public class CosmeticsWindow : MonoBehaviour
         {
             birdSelectedOption = 0;
         }
-
-        if (PlayerPrefs.HasKey(HAT_SELECTED_OPTION))
-        {
-            hatSelectedOption = PlayerPrefs.GetInt(HAT_SELECTED_OPTION);
-        }
-        else
-        {
-            hatSelectedOption = 0;
-        }
-
+        hatSelectedOption = 0;
 
         //Button 
 
@@ -50,8 +42,6 @@ public class CosmeticsWindow : MonoBehaviour
         {
             Hide();
             GameHandler.state = GameHandler.State.WaitingToStart;
-            PlayerPrefs.SetInt(BIRD_SELECTED_OPTION, birdSelectedOption);
-            PlayerPrefs.Save();
         };
 
         //Bird Selecting
@@ -68,12 +58,12 @@ public class CosmeticsWindow : MonoBehaviour
         //Hat Selecting
         hatLeftButton.GetComponent<Button_UI>().ClickFunc = () =>
         {
-            BackOption(ref hatSelectedOption, hatDatabase);
+            BackOption(ref hatSelectedOption, bird.GetBirdSO().hatDatabase);
         };
 
         hatRightButton.GetComponent<Button_UI>().ClickFunc = () =>
         {
-            NextOption(ref hatSelectedOption, hatDatabase);
+            NextOption(ref hatSelectedOption, bird.GetBirdSO().hatDatabase);
         };
 
         UpdateAll();
@@ -82,8 +72,8 @@ public class CosmeticsWindow : MonoBehaviour
 
     private void UpdateAll()
     {
-        UpdateCosmetics();
         UpdateBird();
+        UpdateCosmetics();
     }
 
     private void UpdateCosmetics()
@@ -93,12 +83,11 @@ public class CosmeticsWindow : MonoBehaviour
 
     private void UpdateHat()
     {
-        hatDatabase.UpdateSO(bird, hatSelectedOption);
+        bird.GetBirdSO().hatDatabase.UpdateSO(bird, hatSelectedOption);
     }
     private void UpdateBird()
     {
         birdDatabase.UpdateSO(bird, birdSelectedOption);
-
     }
 
     public void NextOption(ref int selectedOption, DatabaseSO databaseSO)
@@ -108,7 +97,6 @@ public class CosmeticsWindow : MonoBehaviour
         {
             selectedOption = 0;
         }
-
         UpdateAll();
     }
 
@@ -119,7 +107,6 @@ public class CosmeticsWindow : MonoBehaviour
         {
             selectedOption = databaseSO.Count - 1;
         }
-
         UpdateAll();
     }
 

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65d006e23fe6fcb4a9e138318431923f, type: 3}
-  m_Name: HatHard
+  m_Name: HatNurse
   m_EditorClassIdentifier: 
-  cosmetic: {fileID: 21300000, guid: fd0e99dd8f61b294bb89fdbe1ce492bd, type: 3}
-  xPos: 0.2
-  yPos: 1.52
-  zRotation: -1.18
+  cosmetic: {fileID: 21300000, guid: 1d9efcd1339430d44bc94c7173a479d8, type: 3}
+  xPos: -0.07
+  yPos: 1.16
+  zRotation: 9.027

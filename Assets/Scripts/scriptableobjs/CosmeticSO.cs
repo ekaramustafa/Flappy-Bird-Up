@@ -7,9 +7,8 @@ using UnityEngine;
 public class CosmeticSO : ScriptableObject
 {
     public Sprite cosmetic;
-    public float xoffset;
-    public float yoffset;
+    public float xPos;
+    public float yPos;
     public float zRotation;
-
    
 }
