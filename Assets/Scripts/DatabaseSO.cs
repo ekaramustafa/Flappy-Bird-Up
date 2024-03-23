@@ -8,7 +8,7 @@ public abstract class DatabaseSO : ScriptableObject
 {
     public ScriptableObject[] scriptableObjects;
 
-    public int Count
+    public virtual int Count
     {
         get
         {

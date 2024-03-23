@@ -19,4 +19,12 @@ public static class CoinManager
         int currentCoinBalance = GetCoin();
         PlayerPrefs.SetInt(COIN,currentCoinBalance + value);
     }
+
+    public static bool DeduceCoin(int value)
+    {
+        int currentCoinBalance = GetCoin();
+        if (currentCoinBalance < value) return false;
+        PlayerPrefs.SetInt(COIN, currentCoinBalance - value);
+        return true;
+    }
 }

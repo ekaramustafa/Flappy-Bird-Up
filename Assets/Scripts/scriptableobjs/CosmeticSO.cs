@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,5 +11,7 @@ public class CosmeticSO : ScriptableObject
     public float xPos;
     public float yPos;
     public float zRotation;
+    public int price;
+    public Boolean isPurchased;
    
 }
