@@ -15,6 +15,8 @@ public class GameHandler : MonoBehaviour
     }
 
     public static float BIRD_X_POSITION = 0f;
+    public const float CAMERA_ORTHO_SIZE = 50f;
+
 
     public static State state;
     public static float _objectsMovingSpeed = 30f;

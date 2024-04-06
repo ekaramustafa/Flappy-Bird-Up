@@ -13,8 +13,6 @@ public class Level : MonoBehaviour
     */
     private static Level instance;
 
-    private const float CAMERA_ORTHO_SIZE = 50f;
-
     private const float PIPE_BODY_WIDTH = 7.8f;
     private const float PIPE_HEAD_HEIGHT = 3.75f;
     private const float PIPE_DESTROY_X_POSITION = -100f;
@@ -78,7 +76,7 @@ public class Level : MonoBehaviour
         if (GameHandler.state == GameHandler.State.Playing)
         {
             HandlePipeSwapning();
-            HandleAbilitySpawning();
+            AbilityManager.GetInstance().HandleAbilitySpawning();
             HandleCoinSpawning();
         }
 
@@ -91,8 +89,8 @@ public class Level : MonoBehaviour
         {
             coinSpawnTimer += coinSpawnTimerMax;
             float heightEdgeLimit = 10f;
-            float minHeight = -CAMERA_ORTHO_SIZE + heightEdgeLimit;
-            float maxHeight = CAMERA_ORTHO_SIZE - heightEdgeLimit;
+            float minHeight = -GameHandler.CAMERA_ORTHO_SIZE + heightEdgeLimit;
+            float maxHeight = GameHandler.CAMERA_ORTHO_SIZE - heightEdgeLimit;
             float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
             float minX = 50;
@@ -117,8 +115,8 @@ public class Level : MonoBehaviour
         {
             abilitiesSpawnTimer += abilitiesSpawnTimerMax;
             float heightEdgeLimit = 10f;
-            float minHeight = -CAMERA_ORTHO_SIZE + heightEdgeLimit;
-            float maxHeight = CAMERA_ORTHO_SIZE - heightEdgeLimit;
+            float minHeight = -GameHandler.CAMERA_ORTHO_SIZE + heightEdgeLimit;
+            float maxHeight = GameHandler.CAMERA_ORTHO_SIZE - heightEdgeLimit;
             float height = UnityEngine.Random.Range(minHeight, maxHeight);
 
             float minX = 50;
@@ -159,7 +157,7 @@ public class Level : MonoBehaviour
 
             float heightEdgeLimit = 10f;
             float minHeight = gapSize * 0.5f + heightEdgeLimit;
-            float maxHeight = CAMERA_ORTHO_SIZE * 2f - gapSize * 0.5f - heightEdgeLimit;
+            float maxHeight = GameHandler.CAMERA_ORTHO_SIZE * 2f - gapSize * 0.5f - heightEdgeLimit;
             float height = UnityEngine.Random.Range(minHeight, maxHeight);
             CreateGapPipes(height, gapSize, PIPE_SPAWN_X_POSITION);
             pipesSpawned++;
@@ -198,7 +196,7 @@ public class Level : MonoBehaviour
     {
         PipeSO pipeSO = GameAssets.GetInstance().GetRandomPipeSO();
         CreatePipe(gapY - gapSize * 0.5f, xPosition, true, pipeSO);
-        CreatePipe(CAMERA_ORTHO_SIZE * 2f - gapY - gapSize * 0.5f, xPosition, false, pipeSO);
+        CreatePipe(GameHandler.CAMERA_ORTHO_SIZE * 2f - gapY - gapSize * 0.5f, xPosition, false, pipeSO);
 
     }
 
@@ -210,11 +208,11 @@ public class Level : MonoBehaviour
         float pipeBodyYPosition;
         if (isBottom)
         {
-            pipeBodyYPosition = -CAMERA_ORTHO_SIZE;
+            pipeBodyYPosition = -GameHandler.CAMERA_ORTHO_SIZE;
         }
         else
         {
-            pipeBodyYPosition = +CAMERA_ORTHO_SIZE;
+            pipeBodyYPosition = +GameHandler.CAMERA_ORTHO_SIZE;
             pipeBody.localScale = new Vector3(1, -1, 1);
         }
         if (isBottom)
@@ -238,11 +236,11 @@ public class Level : MonoBehaviour
         float pipeHeadYPosition;
         if (isBottom)
         {
-            pipeHeadYPosition = -CAMERA_ORTHO_SIZE + height - PIPE_HEAD_HEIGHT * 0.5f;
+            pipeHeadYPosition = -GameHandler.CAMERA_ORTHO_SIZE + height - PIPE_HEAD_HEIGHT * 0.5f;
         }
         else
         {
-            pipeHeadYPosition = +CAMERA_ORTHO_SIZE - height + PIPE_HEAD_HEIGHT * 0.5f;
+            pipeHeadYPosition = +GameHandler.CAMERA_ORTHO_SIZE - height + PIPE_HEAD_HEIGHT * 0.5f;
         }
 
         pipeHead.position = new Vector3(xPosition, pipeHeadYPosition);
