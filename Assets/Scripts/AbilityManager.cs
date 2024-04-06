@@ -8,9 +8,13 @@ public class AbilityManager : MonoBehaviour
 
     private static AbilityManager instance;
 
-    public event EventHandler OnAbilityInteracted;
+    public event EventHandler<OnAbilityArgs> OnAbilityInteracted;
     public event EventHandler OnAbilityDestroyed;
 
+    public class OnAbilityArgs : EventArgs
+    {
+        public Ability ability;
+    }
 
     private float abilitiesSpawnTimer;
     [SerializeField] private float abilitiesSpawnTimerMax = 8f;
@@ -64,4 +68,17 @@ public class AbilityManager : MonoBehaviour
         return false;
     }
 
+    public void ScaleSpawnerTimers(float scale)
+    {
+        abilitiesSpawnTimerMax = abilitiesSpawnTimerMax / scale;
+    }
+
+    public void PerformAbility(Ability ability, GameObject gameObject)
+    {
+        ability.PerformAbility(gameObject);
+        OnAbilityInteracted?.Invoke(this, new OnAbilityArgs
+        {
+            ability = ability,
+        });
+    }
 }

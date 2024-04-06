@@ -6,17 +6,21 @@ public abstract class Ability: MonoBehaviour, IInteractable
 {
 
     protected Effect ability;
-    protected float abilityEffectTime;
+    public float abilityEffectTime;
+
+    private protected static int id;
 
     private void Awake()
     {
         abilityEffectTime = 2f;
+        id++;
     }
 
     public abstract void PerformAbility(GameObject gameObject);
 
     public void Interact(GameObject gameObject)
     {
+        //AbilityManager.GetInstance().PerformAbility(this,gameObject);
         PerformAbility(gameObject);
     }
 
@@ -50,6 +54,11 @@ public abstract class Ability: MonoBehaviour, IInteractable
         {
             Move();
         }
+    }
+
+    public float GetAbilityEffectTime()
+    {
+        return abilityEffectTime;
     }
 
 

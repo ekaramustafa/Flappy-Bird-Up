@@ -28,10 +28,6 @@ public class Level : MonoBehaviour
     private int pipesSpawned;
 
 
-    private float abilitiesSpawnTimer;
-    [SerializeField] private float abilitiesSpawnTimerMax = 8f;
-
-
     private float coinSpawnTimer;
     [SerializeField] private float coinSpawnTimerMax = 8f;
 
@@ -52,7 +48,6 @@ public class Level : MonoBehaviour
         pipesSpawned = 0;
         instance = this;
 
-        abilitiesSpawnTimer = abilitiesSpawnTimerMax;
         coinSpawnTimer = coinSpawnTimerMax;
 
     }
@@ -107,36 +102,6 @@ public class Level : MonoBehaviour
         coinTransform.position = new Vector3(xPosition, yPosition);
         Coin coin = coinTransform.GetComponent<Coin>();
     }
-
-    private void HandleAbilitySpawning()
-    {
-        abilitiesSpawnTimer -= Time.deltaTime;
-        if (abilitiesSpawnTimer < 0)
-        {
-            abilitiesSpawnTimer += abilitiesSpawnTimerMax;
-            float heightEdgeLimit = 10f;
-            float minHeight = -GameHandler.CAMERA_ORTHO_SIZE + heightEdgeLimit;
-            float maxHeight = GameHandler.CAMERA_ORTHO_SIZE - heightEdgeLimit;
-            float height = UnityEngine.Random.Range(minHeight, maxHeight);
-
-            float minX = 50;
-            float maxX = 100;
-            float xPosition = UnityEngine.Random.Range(minX, maxX);
-            CreateAbility(height, xPosition);
-        }
-    }
-
-    private void CreateAbility(float yPosition, float xPosition)
-    {
-        if (IsCollidingAnything(yPosition, xPosition)) return;
-
-        Transform abilityTransform = Instantiate(GameAssets.GetInstance().GetRandomAbility());
-        abilityTransform.position = new Vector3(xPosition, yPosition);
-        Ability ability = abilityTransform.GetComponent<Ability>();
-
-    }
-
-
     private bool IsCollidingAnything(float yPosition, float xPosition)
     {
         float spawnRadiusOffset = 4f;
@@ -256,9 +221,8 @@ public class Level : MonoBehaviour
     //make the spawning faster/slower
     public void ScaleSpawnerTimers(float scale)
     {
-        abilitiesSpawnTimerMax = abilitiesSpawnTimerMax / scale;
+        AbilityManager.GetInstance().ScaleSpawnerTimers(scale);
         pipeSpawnTimerMax = pipeSpawnTimerMax / scale;
-        Debug.Log("The value of pipeSpawnTimerMax : " + pipeSpawnTimerMax);
     }
 }
 

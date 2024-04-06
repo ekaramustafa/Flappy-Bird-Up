@@ -26,7 +26,7 @@ public class GameHandler : MonoBehaviour
             return _objectsMovingSpeed;
         }
         set
-        {         
+        {
             float ratio = value / _objectsMovingSpeed;
             Level.GetInstance().ScaleSpawnerTimers(ratio);
             _objectsMovingSpeed = value;
