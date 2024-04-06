@@ -96,6 +96,16 @@ public class CosmeticsWindow : MonoBehaviour
             ShowHatBuy();
             readyButton.gameObject.SetActive(false);
         }
+        else
+        {
+            HideHatBuy();
+            readyButton.gameObject.SetActive(true);
+        }
+    }
+
+    private void HideHatBuy()
+    {
+        hatBuyButton.gameObject.SetActive(false);
     }
 
     private void ShowHatBuy()
@@ -107,7 +117,11 @@ public class CosmeticsWindow : MonoBehaviour
     {
         HatDatabaseSO hatDatabase = bird.GetBirdSO().hatDatabase;
         int price = ((CosmeticSO)hatDatabase.GetScriptableObject(hatSelectedOption)).price;
-        if (!CoinManager.DeduceCoin(price)) return;
+        if (!CoinManager.DeduceCoin(price))
+        {
+            SoundManager.PlaySound(SoundManager.Sound.Rejection);
+            return;
+        }
         hatDatabase.BuySelectedOption(hatSelectedOption);
         hatBuyButton.gameObject.SetActive(false);
         readyButton.gameObject.SetActive(true);

@@ -1198,6 +1198,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: c53c3cd5e519d7741a15bed2f1e9ef6b, type: 3}
   - sound: 4
     audioClip: {fileID: 8300000, guid: b41b66a24c963fb4b811d8d4c5c4cfa3, type: 3}
+  - sound: 5
+    audioClip: {fileID: 8300000, guid: a539c6b5833d07b4895d03c91e9b66bf, type: 3}
 --- !u!1 &727443233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3917,7 +3919,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 120
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

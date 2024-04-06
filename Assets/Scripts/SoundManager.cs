@@ -13,7 +13,8 @@ public static class SoundManager
         Death,
         ButtonOver,
         ButtonClicked,
-        CoinCollect
+        CoinCollect,
+        Rejection
     }
 
     public static void PlaySound(Sound sound)
