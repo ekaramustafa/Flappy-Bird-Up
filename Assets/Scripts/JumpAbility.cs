@@ -6,6 +6,7 @@ public class JumpAbility : Ability
 {
 
     private float originalJumpSpeed;
+    private Bird bird;
 
     private void Awake()
     {
@@ -13,7 +14,7 @@ public class JumpAbility : Ability
     }
     public override void PerformAbility(GameObject gameObject)
     {
-        Bird bird = gameObject.GetComponent<Bird>();
+        bird = gameObject.GetComponent<Bird>();
         originalJumpSpeed = bird.GetJumpSpeed();
         bird.SetJumpSpeed(originalJumpSpeed * 1.5f);
         StartCoroutine(ResetAbilityEffectAfterDelay(abilityEffectTime));
@@ -24,9 +25,10 @@ public class JumpAbility : Ability
     {
         GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(delay);
-        gameObject.GetComponent<Bird>(); 
+        bird.SetJumpSpeed(originalJumpSpeed);
+        AbilityManager.GetInstance().RemovePerformedAbility(this.GetComponent<Ability>());
         Destroy(this.gameObject);
     }
 
- 
+
 }

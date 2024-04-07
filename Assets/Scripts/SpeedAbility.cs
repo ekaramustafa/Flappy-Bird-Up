@@ -23,6 +23,7 @@ public class SpeedAbility : Ability
         GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(delay);
         GameHandler.OBJECTS_MOVING_SPEED = originalSpeed;
+        AbilityManager.GetInstance().RemovePerformedAbility(this.GetComponent<Ability>());
         Destroy(this.gameObject);
     }
 
