@@ -9,7 +9,7 @@ public class AbilityManager : MonoBehaviour
     private static AbilityManager instance;
 
     public event EventHandler<OnAbilityArgs> OnAbilityInteracted;
-    public event EventHandler OnAbilityDestroyed;
+    public event EventHandler<OnAbilityArgs> OnAbilityDestroyed;
 
     public class OnAbilityArgs : EventArgs
     {
@@ -17,7 +17,7 @@ public class AbilityManager : MonoBehaviour
     }
 
     private float abilitiesSpawnTimer;
-    [SerializeField] private float abilitiesSpawnTimerMax = 8f;
+    [SerializeField] private float abilitiesSpawnTimerMax;
 
     public static AbilityManager GetInstance()
     {
@@ -79,6 +79,14 @@ public class AbilityManager : MonoBehaviour
         OnAbilityInteracted?.Invoke(this, new OnAbilityArgs
         {
             ability = ability,
+        });
+    }
+
+    public void RemovePerformedAbility(Ability ability)
+    {
+        OnAbilityDestroyed?.Invoke(this, new OnAbilityArgs
+        {
+            ability = ability
         });
     }
 }

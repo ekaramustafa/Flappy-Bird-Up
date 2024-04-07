@@ -7,27 +7,58 @@ using UnityEngine.UI;
 
 public class AbilitySingleUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI effectDuration;
     [SerializeField] private Transform iconContainter;
     [SerializeField] private Transform iconTemplate;
+    private int id;
+
+    private float fadeDuration;
+
 
     public void SetAbility(Ability ability)
     {
-        Transform iconTransform = Instantiate(iconTemplate, iconContainter);
-        iconTransform.gameObject.SetActive(true);
-        iconTransform.GetComponent<Image>().sprite = ability.GetComponent<SpriteRenderer>().sprite;
-        effectDuration.text =  $"{ability.GetAbilityEffectTime()}";
+        
+        foreach (Transform child in iconContainter)
+        {
+            if (child != iconTemplate)
+                Destroy(child);
+        }
+
+        iconTemplate.gameObject.SetActive(true);
+        iconTemplate.GetComponent<Image>().sprite = ability.GetComponent<SpriteRenderer>().sprite;
+        Debug.Log("Here");
+        iconTemplate.GetComponent<Image>().color = ability.GetComponent<SpriteRenderer>().color;
+        iconTemplate.rotation = ability.transform.rotation;
+        id = ability.GetID();
+        fadeDuration = ability.GetAbilityEffectTime();
+        StartCoroutine(Fade(0f));
     }
 
-    // Start is called before the first frame update
-    void Start()
+    IEnumerator Fade(float targetAlpha)
     {
-        
+        float timer = 0f;
+        float currentAlpha = 1f;
+        Color color = iconTemplate.GetComponent<Image>().color;
+
+        // Interpolate the alpha value over time
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            currentAlpha = Mathf.Lerp(1f, targetAlpha, timer / fadeDuration);
+            color.a = currentAlpha;
+            iconTemplate.GetComponent<Image>().color = color;
+            yield return null;
+        }
+
+        currentAlpha = targetAlpha;
+        color.a = currentAlpha;
+        iconTemplate.GetComponent<Image>().color = color; // Ensure final alpha value
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public int GetAbilityID()
     {
-        
-    }
+        return id;
+    } 
+
+    
 }

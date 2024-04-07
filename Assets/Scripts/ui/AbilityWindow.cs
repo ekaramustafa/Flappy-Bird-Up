@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,8 +20,9 @@ public class AbilityWindow : MonoBehaviour
     {
         AbilityManager.GetInstance().OnAbilityDestroyed += OnAbilityDestroyed;
         AbilityManager.GetInstance().OnAbilityInteracted += OnAbilityInteracted;
-    }
 
+        
+    }
     private void OnAbilityInteracted(object sender, AbilityManager.OnAbilityArgs e)
     {
         Transform abilityTransform = Instantiate(template, container);
@@ -28,8 +30,17 @@ public class AbilityWindow : MonoBehaviour
         abilityTransform.GetComponent<AbilitySingleUI>().SetAbility(e.ability);
     }
 
-    private void OnAbilityDestroyed(object sender, System.EventArgs e)
+    private void OnAbilityDestroyed(object sender, AbilityManager.OnAbilityArgs e)
     {
-        throw new System.NotImplementedException();
+        foreach (Transform child in container)
+        {
+            
+            if (child.GetComponent<AbilitySingleUI>().GetAbilityID() == e.ability.GetID() && child != template)
+            {
+                Destroy(child.gameObject);
+                return;
+            }
+            
+        }
     }
 }

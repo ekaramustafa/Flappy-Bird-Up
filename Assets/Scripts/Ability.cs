@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public abstract class Ability: MonoBehaviour, IInteractable
 {
 
     protected Effect ability;
-    public float abilityEffectTime;
+    protected float abilityEffectTime = 3f;
 
-    private protected static int id;
+    private protected static int counter;
+    private int id;
 
     private void Awake()
     {
-        abilityEffectTime = 2f;
-        id++;
+        id = counter;
+        counter++;
     }
 
     public abstract void PerformAbility(GameObject gameObject);
 
     public void Interact(GameObject gameObject)
     {
-        //AbilityManager.GetInstance().PerformAbility(this,gameObject);
-        PerformAbility(gameObject);
+        AbilityManager.GetInstance().PerformAbility(this,gameObject);
     }
 
 
@@ -59,6 +60,11 @@ public abstract class Ability: MonoBehaviour, IInteractable
     public float GetAbilityEffectTime()
     {
         return abilityEffectTime;
+    }
+
+    public int GetID()
+    {
+        return id;
     }
 
 
